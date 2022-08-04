@@ -2,6 +2,8 @@ version: '3.8'
 
 services:
   caddy:
+    env_file:
+      - .env.prod
     volumes:
       - ./caddy/data:/data
       - ./caddy/config:/config
@@ -9,8 +11,12 @@ services:
       - "80:80"
       - "443:443"
   prometheus:
+    env_file:
+      - .env.prod
     volumes:
       - ./prometheus/data:/prometheus
   grafana:
+    env_file:
+      - .env.prod
     volumes:
       - ./grafana/data:/var/lib/grafana
