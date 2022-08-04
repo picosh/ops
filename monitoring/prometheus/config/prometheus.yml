@@ -1,0 +1,51 @@
+global:
+  scrape_interval: 30s
+  scrape_timeout: 10s
+
+rule_files:
+  - alert.yml
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets:
+        - prometheus:9090
+  - job_name: grafana
+    static_configs:
+      - targets:
+        - grafana:3000
+  - job_name: cadvisor
+    static_configs:
+      - targets:
+        - 10.0.0.48:9080 # oracle0
+        - 10.0.0.211:9080 # oracle1
+        - 10.0.0.101:9080 # oracle2
+        - 10.0.0.150:9080 # oracle3
+  - job_name: node_exporter
+    static_configs:
+      - targets:
+        - 10.0.0.48:9100 # oracle0
+        - 10.0.0.211:9100 # oracle1
+        - 10.0.0.101:9100 # oracle2
+        - 10.0.0.150:9100 # oracle3
+  - job_name: wish
+    tls_config:
+      insecure_skip_verify: true
+    scheme: https
+    metrics_path: /_app/metrics
+    static_configs:
+      - targets:
+        - prose.sh
+        - pastes.sh
+        - lists.sh
+  - job_name: caddy
+    tls_config:
+      insecure_skip_verify: true
+    scheme: https
+    metrics_path: /_caddy/metrics
+    static_configs:
+      - targets:
+        - prose.sh
+        - pastes.sh
+        - lists.sh
+        - monitoring.pico.sh

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  caddy:
+    volumes:
+      - ./caddy/data:/data
+      - ./caddy/config:/config
+    ports:
+      - "80:80"
+      - "443:443"
+  prometheus:
+    volumes:
+      - ./prometheus/data:/prometheus
+  grafana:
+    volumes:
+      - ./grafana/data:/var/lib/grafana

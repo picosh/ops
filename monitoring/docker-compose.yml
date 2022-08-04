@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  caddy:
+    image: neurosnap/pico-caddy:latest
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+    restart: always
+    profiles:
+      - caddy
+      - all
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/config:/etc/prometheus
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml --web.external-url https://prometheus.${APP_DOMAIN:-dev.prose.sh} --storage.tsdb.retention.time 90d
+    restart: always
+    profiles:
+      - monitoring
+      - all
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./grafana/config:/etc/grafana
+    restart: always
+    profiles:
+      - monitoring
+      - all

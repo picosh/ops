@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  prometheus:
+    env_file:
+      - .env.example
+    volumes:
+      - ./prometheus/data:/prometheus
+    ports:
+      - 9090:9090
+  grafana:
+    env_file:
+      - .env.example
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+    ports:
+      - 3000:3000
