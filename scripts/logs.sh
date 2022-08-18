@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILTER=${1:-prose|lists|pastes}
+FILTER=${1:-prose|lists|pastes|imgs}
 
 function _exit {
 	kill $(jobs -p)

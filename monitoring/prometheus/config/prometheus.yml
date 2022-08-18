@@ -38,6 +38,7 @@ scrape_configs:
         - prose.sh
         - pastes.sh
         - lists.sh
+        - imgs.sh
   - job_name: caddy
     tls_config:
       insecure_skip_verify: true
@@ -48,4 +49,5 @@ scrape_configs:
         - prose.sh
         - pastes.sh
         - lists.sh
+        - imgs.sh
         - monitoring.pico.sh

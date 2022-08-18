@@ -13,7 +13,7 @@ services:
     image: prom/prometheus:latest
     volumes:
       - ./prometheus/config:/etc/prometheus
-    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml --web.external-url https://prometheus.${APP_DOMAIN:-dev.prose.sh} --storage.tsdb.retention.time 90d
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml --web.external-url https://prometheus.${APP_DOMAIN:-dev.pico.sh} --storage.tsdb.retention.time 90d
     restart: always
     profiles:
       - monitoring
