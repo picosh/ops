@@ -18,6 +18,7 @@
 	basicauth @prometheus {
 		eric JDJhJDE0JDdPOXhoNUdhSmNVNDl6UWpmeTE0cWVkLjRwcUNJUnc0dVQ4MTZNSmVaNjA1TlptaVZYY1hh
 		antonio JDJhJDE0JHI5dkVtMW0vcGxIb011OG4vME5HOU91c3U2VjM2QTZiWVpUeXdSbEg3VUtNZVdhN3BRazFH
+		bot JDJhJDE0JFVsRlNHSDlJbFhDeUd0NldRR2JkcGVFYUJtWGluTHZDVlc5L3QwNWNwWUMuODRlcXZNZHpT
 	}
 	reverse_proxy @prometheus prometheus:9090
 
