@@ -51,3 +51,12 @@ scrape_configs:
         - lists.sh
         - imgs.sh
         - monitoring.pico.sh
+        - minio.pico.sh
+  - job_name: minio
+    tls_config:
+      insecure_skip_verify: true
+    scheme: https
+    metrics_path: /minio/v2/metrics/cluster
+    static_configs:
+      - targets:
+        - minio.pico.sh
