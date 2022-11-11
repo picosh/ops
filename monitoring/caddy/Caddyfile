@@ -7,7 +7,7 @@
 		host prometheus.{$APP_DOMAIN}
 	}
 
-	tls @{$APP_EMAIL} {
+	tls {$APP_EMAIL} {
 		dns cloudflare {$CF_API_TOKEN}
 	}
 
