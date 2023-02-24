@@ -1,0 +1,193 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: HTTPS
+    folder: Default
+    interval: 60s
+    rules:
+      - id: 1
+        uid: 7pOZR7x4z
+        orgID: 1
+        folderUID: wLZWgnbVz
+        ruleGroup: HTTPS
+        title: Certificate Expiration
+        condition: C
+        data:
+        - refId: A
+          queryType: ''
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: PBFA97CFB590B2093
+          model:
+            editorMode: code
+            expr: floor((probe_ssl_earliest_cert_expiry - time()) / (3600 * 24))
+            hide: false
+            intervalMs: 1000
+            legendFormat: __auto
+            maxDataPoints: 43200
+            range: true
+            refId: A
+        - refId: B
+          queryType: ''
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: "-100"
+          model:
+            conditions:
+            - evaluator:
+                params:
+                - 0
+                - 0
+                type: gt
+              operator:
+                type: and
+              query:
+                params: []
+              reducer:
+                params: []
+                type: avg
+              type: query
+            datasource:
+              name: Expression
+              type: __expr__
+              uid: __expr__
+            expression: A
+            intervalMs: 1000
+            maxDataPoints: 43200
+            reducer: last
+            refId: B
+            settings:
+              mode: dropNN
+            type: reduce
+        - refId: C
+          queryType: ''
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: "-100"
+          model:
+            conditions:
+            - evaluator:
+                params:
+                - 30
+                - 0
+                type: lt
+              operator:
+                type: and
+              query:
+                params: []
+              reducer:
+                params: []
+                type: avg
+              type: query
+            datasource:
+              name: Expression
+              type: __expr__
+              uid: __expr__
+            expression: B
+            intervalMs: 1000
+            maxDataPoints: 43200
+            refId: C
+            type: threshold
+        updated: '2023-02-24T20:29:12Z'
+        noDataState: Alerting
+        execErrState: Alerting
+        for: 1m
+        annotations:
+          description: The certificate for {{ $labels.instance }} will expire in {{ $values.B
+            }} days
+          summary: The certificate for {{ $labels.instance }} will expire in {{ $values.B
+            }} days
+      - id: 3
+        uid: XqLjDnx4k
+        orgID: 1
+        folderUID: wLZWgnbVz
+        ruleGroup: HTTPS
+        title: HTTPS Status
+        condition: C
+        data:
+        - refId: A
+          queryType: ''
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: PBFA97CFB590B2093
+          model:
+            editorMode: code
+            expr: probe_success{job=~"blackbox_exporter_https_.*"}
+            hide: false
+            intervalMs: 1000
+            legendFormat: __auto
+            maxDataPoints: 43200
+            range: true
+            refId: A
+        - refId: B
+          queryType: ''
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: "-100"
+          model:
+            conditions:
+            - evaluator:
+                params: []
+                type: gt
+              operator:
+                type: and
+              query:
+                params:
+                - B
+              reducer:
+                params: []
+                type: last
+              type: query
+            datasource:
+              type: __expr__
+              uid: "-100"
+            expression: A
+            hide: false
+            intervalMs: 1000
+            maxDataPoints: 43200
+            reducer: last
+            refId: B
+            type: reduce
+        - refId: C
+          queryType: ''
+          relativeTimeRange:
+            from: 600
+            to: 0
+          datasourceUid: "-100"
+          model:
+            conditions:
+            - evaluator:
+                params:
+                - 1
+                type: lt
+              operator:
+                type: and
+              query:
+                params:
+                - C
+              reducer:
+                params: []
+                type: last
+              type: query
+            datasource:
+              type: __expr__
+              uid: "-100"
+            expression: B
+            hide: false
+            intervalMs: 1000
+            maxDataPoints: 43200
+            refId: C
+            type: threshold
+        updated: '2023-02-24T20:29:12Z'
+        noDataState: NoData
+        execErrState: Error
+        for: 1m
+        annotations:
+          description: HTTPS is inaccessible for {{ $labels.instance }}
+          summary: HTTPS is inaccessible for {{ $labels.instance }}

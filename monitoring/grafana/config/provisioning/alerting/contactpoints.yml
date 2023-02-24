@@ -1,0 +1,12 @@
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: Notifico
+    receivers:
+      - uid: J9QprMbVz
+        type: webhook
+        settings:
+          url: $NOTIFY_WEBHOOK
+          httpMethod: POST
+          maxAlerts: '0'
