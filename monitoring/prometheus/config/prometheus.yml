@@ -101,13 +101,18 @@ scrape_configs:
         replacement: blackbox_exporter:9115
     static_configs:
     - targets:
-        - prose.sh
-        - pastes.sh
-        - lists.sh
-        - imgs.sh
-        - feeds.sh
-        - monitoring.pico.sh
-        - minio.pico.sh
+        - prose.sh:22
+        - pastes.sh:22
+        - lists.sh:22
+        - imgs.sh:22
+        - feeds.sh:22
+        - prose.sh:650
+        - pastes.sh:650
+        - lists.sh:650
+        - imgs.sh:650
+        - feeds.sh:650
+        - monitoring.pico.sh:650
+        - minio.pico.sh:650
   - job_name: blackbox_exporter_https_2xx
     metrics_path: "/probe"
     params:
