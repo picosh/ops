@@ -20,3 +20,6 @@ services:
       - .env.prod
     volumes:
       - ./grafana/data:/var/lib/grafana
+  blackbox_exporter:
+    env_file:
+      - .env.prod

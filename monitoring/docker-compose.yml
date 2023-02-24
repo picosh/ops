@@ -26,3 +26,12 @@ services:
     profiles:
       - monitoring
       - all
+  blackbox_exporter:
+    image: prom/blackbox-exporter:latest
+    volumes:
+      - ./blackbox_exporter/config:/etc/blackbox_exporter
+    command: --config.file=/etc/blackbox_exporter/blackbox.yml
+    restart: always
+    profiles:
+      - monitoring
+      - all

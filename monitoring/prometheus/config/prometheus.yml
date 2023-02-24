@@ -39,6 +39,7 @@ scrape_configs:
         - pastes.sh
         - lists.sh
         - imgs.sh
+        - feeds.sh
   - job_name: caddy
     tls_config:
       insecure_skip_verify: true
@@ -50,6 +51,7 @@ scrape_configs:
         - pastes.sh
         - lists.sh
         - imgs.sh
+        - feeds.sh
         - monitoring.pico.sh
         - minio.pico.sh
   - job_name: minio
@@ -59,4 +61,89 @@ scrape_configs:
     metrics_path: /minio/v2/metrics/cluster
     static_configs:
       - targets:
+        - minio.pico.sh
+  - job_name: blackbox_exporter_ping
+    metrics_path: "/probe"
+    params:
+      module:
+      - icmp_check
+    relabel_configs:
+      - source_labels:
+        - __address__
+        target_label: __param_target
+      - source_labels:
+        - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+    - targets:
+        - prose.sh
+        - pastes.sh
+        - lists.sh
+        - imgs.sh
+        - feeds.sh
+        - monitoring.pico.sh
+        - minio.pico.sh
+  - job_name: blackbox_exporter_ssh
+    metrics_path: "/probe"
+    params:
+      module:
+      - ssh_banner
+    relabel_configs:
+      - source_labels:
+        - __address__
+        target_label: __param_target
+      - source_labels:
+        - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+    - targets:
+        - prose.sh
+        - pastes.sh
+        - lists.sh
+        - imgs.sh
+        - feeds.sh
+        - monitoring.pico.sh
+        - minio.pico.sh
+  - job_name: blackbox_exporter_https_2xx
+    metrics_path: "/probe"
+    params:
+      module:
+      - https_get_2xx
+    relabel_configs:
+      - source_labels:
+        - __address__
+        target_label: __param_target
+      - source_labels:
+        - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+    - targets:
+        - prose.sh
+        - pastes.sh
+        - lists.sh
+        - imgs.sh
+        - feeds.sh
+        - monitoring.pico.sh
+  - job_name: blackbox_exporter_https_4xx
+    metrics_path: "/probe"
+    params:
+      module:
+      - https_get_4xx
+    relabel_configs:
+      - source_labels:
+        - __address__
+        target_label: __param_target
+      - source_labels:
+        - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+    - targets:
         - minio.pico.sh
