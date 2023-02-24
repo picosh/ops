@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   caddy:
-    image: neurosnap/pico-caddy:latest
+    image: ghcr.io/picosh/pico/caddy:latest
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
     restart: always
