@@ -8,3 +8,8 @@ as well as scripts that we use on a day-to-day basis.
 
 - `scripts` defines the scripts we use at pico.
 
+# triage
+
+## HTTPS or SSH is inaccessible
+
+Run `/opt/oracle/setup_network.sh` in the VM where the service lives
