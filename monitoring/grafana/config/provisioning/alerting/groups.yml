@@ -72,7 +72,7 @@ groups:
             conditions:
             - evaluator:
                 params:
-                - 30
+                - 20
                 - 0
                 type: lt
               operator:
