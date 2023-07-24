@@ -21,5 +21,16 @@ services:
     volumes:
       - ./grafana/data:/var/lib/grafana
   blackbox_exporter:
+    networks:
+      - default
+      - ip6net
     env_file:
       - .env.prod
+
+networks:
+  ip6net:
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: fd00:dead:beef::/48
