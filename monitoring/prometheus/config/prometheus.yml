@@ -85,11 +85,62 @@ scrape_configs:
           - feeds.sh
           - monitoring.pico.sh
           - minio.pico.sh
+  - job_name: blackbox_exporter_ping_ip6
+    metrics_path: "/probe"
+    params:
+      module:
+        - icmp_check_ip6
+    relabel_configs:
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+      - targets:
+          - prose.sh
+          - pastes.sh
+          - lists.sh
+          - imgs.sh
+          - feeds.sh
+          - monitoring.pico.sh
+          - minio.pico.sh
   - job_name: blackbox_exporter_ssh
     metrics_path: "/probe"
     params:
       module:
         - ssh_banner
+    relabel_configs:
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+      - targets:
+          - prose.sh:22
+          - pastes.sh:22
+          - lists.sh:22
+          - imgs.sh:22
+          - feeds.sh:22
+          - prose.sh:650
+          - pastes.sh:650
+          - lists.sh:650
+          - imgs.sh:650
+          - feeds.sh:650
+          - monitoring.pico.sh:650
+          - minio.pico.sh:650
+  - job_name: blackbox_exporter_ssh_ip6
+    metrics_path: "/probe"
+    params:
+      module:
+        - ssh_banner_ip6
     relabel_configs:
       - source_labels:
           - __address__
@@ -135,6 +186,28 @@ scrape_configs:
           - https://imgs.sh
           - https://feeds.sh
           - https://monitoring.pico.sh
+  - job_name: blackbox_exporter_https_2xx_ip6
+    metrics_path: "/probe"
+    params:
+      module:
+        - https_get_2xx_ip6
+    relabel_configs:
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+      - targets:
+          - https://prose.sh
+          - https://pastes.sh
+          - https://lists.sh
+          - https://imgs.sh
+          - https://feeds.sh
+          - https://monitoring.pico.sh
   - job_name: blackbox_exporter_https_4xx
     metrics_path: "/probe"
     params:
@@ -152,11 +225,51 @@ scrape_configs:
     static_configs:
       - targets:
           - https://minio.pico.sh
+  - job_name: blackbox_exporter_https_4xx_ip6
+    metrics_path: "/probe"
+    params:
+      module:
+        - https_get_4xx_ip6
+    relabel_configs:
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+      - targets:
+          - https://minio.pico.sh
   - job_name: blackbox_exporter_http_3xx
     metrics_path: "/probe"
     params:
       module:
         - http_get_3xx
+    relabel_configs:
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+      - targets:
+          - http://prose.sh
+          - http://pastes.sh
+          - http://lists.sh
+          - http://imgs.sh
+          - http://feeds.sh
+          - http://monitoring.pico.sh
+          - http://minio.pico.sh
+  - job_name: blackbox_exporter_http_3xx_ip6
+    metrics_path: "/probe"
+    params:
+      module:
+        - http_get_3xx_ip6
     relabel_configs:
       - source_labels:
           - __address__
