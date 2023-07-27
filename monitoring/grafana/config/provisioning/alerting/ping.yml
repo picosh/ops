@@ -22,7 +22,7 @@ groups:
           datasourceUid: PBFA97CFB590B2093
           model:
             editorMode: code
-            expr: probe_success{job="blackbox_exporter_ping.*"}
+            expr: probe_success{job=~"blackbox_exporter_ping.*"}
             hide: false
             intervalMs: 1000
             legendFormat: __auto

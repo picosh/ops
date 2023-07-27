@@ -4,6 +4,6 @@
 prometheus/
 !prometheus/config
 grafana/
-!prometheus/config
+!grafana/config
 caddy/
 !caddy/Caddyfile
