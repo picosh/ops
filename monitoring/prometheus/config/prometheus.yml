@@ -39,6 +39,7 @@ scrape_configs:
           - pastes.sh
           - lists.sh
           - imgs.sh
+          - pgs.sh
           - feeds.sh
   - job_name: caddy
     tls_config:
@@ -51,6 +52,7 @@ scrape_configs:
           - pastes.sh
           - lists.sh
           - imgs.sh
+          - pgs.sh
           - feeds.sh
           - monitoring.pico.sh
           - minio.pico.sh
@@ -82,6 +84,7 @@ scrape_configs:
           - pastes.sh
           - lists.sh
           - imgs.sh
+          - pgs.sh
           - feeds.sh
           - monitoring.pico.sh
           - minio.pico.sh
@@ -105,6 +108,7 @@ scrape_configs:
           - pastes.sh
           - lists.sh
           - imgs.sh
+          - pgs.sh
           - feeds.sh
           - monitoring.pico.sh
           - minio.pico.sh
@@ -128,11 +132,13 @@ scrape_configs:
           - pastes.sh:22
           - lists.sh:22
           - imgs.sh:22
+          - pgs.sh:22
           - feeds.sh:22
           - prose.sh:650
           - pastes.sh:650
           - lists.sh:650
           - imgs.sh:650
+          - pgs.sh:650
           - feeds.sh:650
           - monitoring.pico.sh:650
           - minio.pico.sh:650
@@ -156,11 +162,13 @@ scrape_configs:
           - pastes.sh:22
           - lists.sh:22
           - imgs.sh:22
+          - pgs.sh:22
           - feeds.sh:22
           - prose.sh:650
           - pastes.sh:650
           - lists.sh:650
           - imgs.sh:650
+          - pgs.sh:650
           - feeds.sh:650
           - monitoring.pico.sh:650
           - minio.pico.sh:650
@@ -184,6 +192,7 @@ scrape_configs:
           - https://pastes.sh
           - https://lists.sh
           - https://imgs.sh
+          - https://pgs.sh
           - https://feeds.sh
           - https://monitoring.pico.sh
   - job_name: blackbox_exporter_https_2xx_ip6
@@ -206,6 +215,7 @@ scrape_configs:
           - https://pastes.sh
           - https://lists.sh
           - https://imgs.sh
+          - https://pgs.sh
           - https://feeds.sh
           - https://monitoring.pico.sh
   - job_name: blackbox_exporter_https_4xx
@@ -262,6 +272,7 @@ scrape_configs:
           - http://pastes.sh
           - http://lists.sh
           - http://imgs.sh
+          - http://pgs.sh
           - http://feeds.sh
           - http://monitoring.pico.sh
           - http://minio.pico.sh
@@ -285,6 +296,7 @@ scrape_configs:
           - http://pastes.sh
           - http://lists.sh
           - http://imgs.sh
+          - http://pgs.sh
           - http://feeds.sh
           - http://monitoring.pico.sh
           - http://minio.pico.sh
