@@ -1,3 +1,9 @@
+{
+	servers {
+		metrics
+	}
+}
+
 *.{$APP_DOMAIN}, {$APP_DOMAIN} {
 	@grafana {
 		host grafana.{$APP_DOMAIN}
