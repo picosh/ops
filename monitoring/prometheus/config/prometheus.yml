@@ -56,6 +56,8 @@ scrape_configs:
           - feeds.sh
           - monitoring.pico.sh
           - minio.pico.sh
+          - chat.pico.sh
+          - auth.pico.sh
   - job_name: minio
     tls_config:
       insecure_skip_verify: true
@@ -88,6 +90,8 @@ scrape_configs:
           - feeds.sh
           - monitoring.pico.sh
           - minio.pico.sh
+          - chat.pico.sh
+          - auth.pico.sh
   - job_name: blackbox_exporter_ping_ip6
     metrics_path: "/probe"
     params:
@@ -112,6 +116,8 @@ scrape_configs:
           - feeds.sh
           - monitoring.pico.sh
           - minio.pico.sh
+          - chat.pico.sh
+          - auth.pico.sh
   - job_name: blackbox_exporter_ssh
     metrics_path: "/probe"
     params:
@@ -142,6 +148,8 @@ scrape_configs:
           - feeds.sh:650
           - monitoring.pico.sh:650
           - minio.pico.sh:650
+          - chat.pico.sh:650
+          - auth.pico.sh:650
   - job_name: blackbox_exporter_ssh_ip6
     metrics_path: "/probe"
     params:
@@ -172,6 +180,8 @@ scrape_configs:
           - feeds.sh:650
           - monitoring.pico.sh:650
           - minio.pico.sh:650
+          - chat.pico.sh:650
+          - auth.pico.sh:650
   - job_name: blackbox_exporter_https_2xx
     metrics_path: "/probe"
     params:
@@ -195,6 +205,8 @@ scrape_configs:
           - https://pgs.sh
           - https://feeds.sh
           - https://monitoring.pico.sh
+          - https://chat.pico.sh
+          - https://auth.pico.sh
   - job_name: blackbox_exporter_https_2xx_ip6
     metrics_path: "/probe"
     params:
@@ -218,6 +230,8 @@ scrape_configs:
           - https://pgs.sh
           - https://feeds.sh
           - https://monitoring.pico.sh
+          - https://chat.pico.sh
+          - https://auth.pico.sh
   - job_name: blackbox_exporter_https_4xx
     metrics_path: "/probe"
     params:
@@ -276,6 +290,8 @@ scrape_configs:
           - http://feeds.sh
           - http://monitoring.pico.sh
           - http://minio.pico.sh
+          - http://chat.pico.sh
+          - http://auth.pico.sh
   - job_name: blackbox_exporter_http_3xx_ip6
     metrics_path: "/probe"
     params:
@@ -300,3 +316,5 @@ scrape_configs:
           - http://feeds.sh
           - http://monitoring.pico.sh
           - http://minio.pico.sh
+          - http://chat.pico.sh
+          - http://auth.pico.sh
