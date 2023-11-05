@@ -56,7 +56,6 @@ scrape_configs:
           - feeds.sh
           - monitoring.pico.sh
           - minio.pico.sh
-          - chat.pico.sh
           - auth.pico.sh
   - job_name: minio
     tls_config:
