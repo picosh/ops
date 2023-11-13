@@ -65,6 +65,13 @@ scrape_configs:
     static_configs:
       - targets:
           - minio.pico.sh
+  - job_name: imgprpxy
+    tls_config:
+      insecure_skip_verify: true
+    scheme: https
+    static_configs:
+      - targets:
+          - imgproxy.pico.sh
   - job_name: blackbox_exporter_ping
     metrics_path: "/probe"
     params:
@@ -91,6 +98,7 @@ scrape_configs:
           - minio.pico.sh
           - chat.pico.sh
           - auth.pico.sh
+          - imgproxy.pico.sh
   - job_name: blackbox_exporter_ping_ip6
     metrics_path: "/probe"
     params:
@@ -117,6 +125,7 @@ scrape_configs:
           - minio.pico.sh
           - chat.pico.sh
           - auth.pico.sh
+          - imgproxy.pico.sh
   - job_name: blackbox_exporter_ssh
     metrics_path: "/probe"
     params:
@@ -291,6 +300,7 @@ scrape_configs:
           - http://minio.pico.sh
           - http://chat.pico.sh
           - http://auth.pico.sh
+          - http://imgproxy.pico.sh
   - job_name: blackbox_exporter_http_3xx_ip6
     metrics_path: "/probe"
     params:
@@ -317,3 +327,4 @@ scrape_configs:
           - http://minio.pico.sh
           - http://chat.pico.sh
           - http://auth.pico.sh
+          - http://imgproxy.pico.sh
