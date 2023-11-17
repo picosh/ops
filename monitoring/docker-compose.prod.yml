@@ -11,11 +11,17 @@ services:
       - "80:80"
       - "443:443"
   prometheus:
+    networks:
+      - default
+      - caddy
     env_file:
       - .env.prod
     volumes:
       - ./prometheus/data:/prometheus
   grafana:
+    networks:
+      - default
+      - caddy
     env_file:
       - .env.prod
     volumes:
@@ -34,3 +40,6 @@ networks:
       driver: default
       config:
         - subnet: fd00:dead:beef::/48
+  caddy:
+    name: pico_pgs
+    external: true
