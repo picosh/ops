@@ -328,3 +328,37 @@ scrape_configs:
           - http://chat.pico.sh
           - http://auth.pico.sh
           - http://imgproxy.pico.sh
+  - job_name: blackbox_exporter_tls
+    metrics_path: "/probe"
+    params:
+      module:
+        - tcps_connect
+    relabel_configs:
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+      - targets:
+          - irc.pico.sh:6697
+  - job_name: blackbox_exporter_tls_ip6
+    metrics_path: "/probe"
+    params:
+      module:
+        - tcps_connect_ip6
+    relabel_configs:
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+      - targets:
+          - irc.pico.sh:6697
