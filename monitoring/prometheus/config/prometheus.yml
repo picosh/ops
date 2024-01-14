@@ -41,6 +41,14 @@ scrape_configs:
           - imgs.sh
           - pgs.sh
           - feeds.sh
+  - job_name: soju
+    tls_config:
+      insecure_skip_verify: true
+    scheme: https
+    metrics_path: /_app/metrics
+    static_configs:
+      - targets:
+          - irc.pico.sh
   - job_name: caddy
     tls_config:
       insecure_skip_verify: true
