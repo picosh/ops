@@ -18,15 +18,15 @@ scrape_configs:
     static_configs:
       - targets:
           - 10.0.0.48:9080 # oracle0
-          - 10.0.0.211:9080 # oracle1
-          - 10.0.0.101:9080 # oracle2
+          - 10.0.0.220:9080 # oracle1
+          - 10.0.0.134:9080 # oracle2
           - 10.0.0.150:9080 # oracle3
   - job_name: node_exporter
     static_configs:
       - targets:
           - 10.0.0.48:9100 # oracle0
-          - 10.0.0.211:9100 # oracle1
-          - 10.0.0.101:9100 # oracle2
+          - 10.0.0.220:9100 # oracle1
+          - 10.0.0.134:9100 # oracle2
           - 10.0.0.150:9100 # oracle3
   - job_name: wish
     tls_config:
