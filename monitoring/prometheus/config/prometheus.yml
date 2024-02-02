@@ -217,7 +217,6 @@ scrape_configs:
           - https://prose.sh
           - https://pastes.sh
           - https://lists.sh
-          - https://imgs.sh
           - https://pgs.sh
           - https://feeds.sh
           - https://monitoring.pico.sh
@@ -241,11 +240,44 @@ scrape_configs:
           - https://prose.sh
           - https://pastes.sh
           - https://lists.sh
-          - https://imgs.sh
           - https://pgs.sh
           - https://feeds.sh
           - https://monitoring.pico.sh
           - https://chat.pico.sh
+  - job_name: blackbox_exporter_https_3xx
+    metrics_path: "/probe"
+    params:
+      module:
+        - https_get_3xx
+    relabel_configs:
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+      - targets:
+          - https://imgs.sh
+  - job_name: blackbox_exporter_https_3xx_ip6
+    metrics_path: "/probe"
+    params:
+      module:
+        - https_get_3xx_ip6
+    relabel_configs:
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
+    static_configs:
+      - targets:
+          - https://imgs.sh
   - job_name: blackbox_exporter_https_4xx
     metrics_path: "/probe"
     params:
