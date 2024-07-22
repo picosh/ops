@@ -37,7 +37,6 @@ scrape_configs:
       - targets:
           - prose.sh
           - pastes.sh
-          - lists.sh
           - imgs.sh
           - pgs.sh
           - feeds.sh
@@ -58,7 +57,6 @@ scrape_configs:
       - targets:
           - prose.sh
           - pastes.sh
-          - lists.sh
           - imgs.sh
           - pgs.sh
           - feeds.sh
@@ -98,7 +96,6 @@ scrape_configs:
       - targets:
           - prose.sh
           - pastes.sh
-          - lists.sh
           - imgs.sh
           - pgs.sh
           - feeds.sh
@@ -125,7 +122,6 @@ scrape_configs:
       - targets:
           - prose.sh
           - pastes.sh
-          - lists.sh
           - imgs.sh
           - pgs.sh
           - feeds.sh
@@ -152,13 +148,11 @@ scrape_configs:
       - targets:
           - prose.sh:22
           - pastes.sh:22
-          - lists.sh:22
           - imgs.sh:22
           - pgs.sh:22
           - feeds.sh:22
           - prose.sh:650
           - pastes.sh:650
-          - lists.sh:650
           - imgs.sh:650
           - pgs.sh:650
           - feeds.sh:650
@@ -184,13 +178,11 @@ scrape_configs:
       - targets:
           - prose.sh:22
           - pastes.sh:22
-          - lists.sh:22
           - imgs.sh:22
           - pgs.sh:22
           - feeds.sh:22
           - prose.sh:650
           - pastes.sh:650
-          - lists.sh:650
           - imgs.sh:650
           - pgs.sh:650
           - feeds.sh:650
@@ -216,7 +208,6 @@ scrape_configs:
       - targets:
           - https://prose.sh
           - https://pastes.sh
-          - https://lists.sh
           - https://pgs.sh
           - https://feeds.sh
           - https://monitoring.pico.sh
@@ -239,7 +230,6 @@ scrape_configs:
       - targets:
           - https://prose.sh
           - https://pastes.sh
-          - https://lists.sh
           - https://pgs.sh
           - https://feeds.sh
           - https://monitoring.pico.sh
@@ -332,7 +322,6 @@ scrape_configs:
       - targets:
           - http://prose.sh
           - http://pastes.sh
-          - http://lists.sh
           - http://imgs.sh
           - http://pgs.sh
           - http://feeds.sh
@@ -359,7 +348,6 @@ scrape_configs:
       - targets:
           - http://prose.sh
           - http://pastes.sh
-          - http://lists.sh
           - http://imgs.sh
           - http://pgs.sh
           - http://feeds.sh
