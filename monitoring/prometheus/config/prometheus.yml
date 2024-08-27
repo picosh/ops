@@ -40,6 +40,14 @@ scrape_configs:
           - imgs.sh
           - pgs.sh
           - feeds.sh
+  - job_name: tuns
+    tls_config:
+      insecure_skip_verify: true
+    scheme: https
+    metrics_path: /_sish/metrics
+    static_configs:
+      - targets:
+          - tuns.sh
   - job_name: soju
     tls_config:
       insecure_skip_verify: true
@@ -99,6 +107,7 @@ scrape_configs:
           - imgs.sh
           - pgs.sh
           - feeds.sh
+          - tuns.sh
           - monitoring.pico.sh
           - minio.pico.sh
           - chat.pico.sh
@@ -125,6 +134,7 @@ scrape_configs:
           - imgs.sh
           - pgs.sh
           - feeds.sh
+          - tuns.sh
           - monitoring.pico.sh
           - minio.pico.sh
           - chat.pico.sh
@@ -151,6 +161,7 @@ scrape_configs:
           - imgs.sh:22
           - pgs.sh:22
           - feeds.sh:22
+          - tuns.sh:22
           - prose.sh:650
           - pastes.sh:650
           - imgs.sh:650
@@ -181,6 +192,7 @@ scrape_configs:
           - imgs.sh:22
           - pgs.sh:22
           - feeds.sh:22
+          - tuns.sh:22
           - prose.sh:650
           - pastes.sh:650
           - imgs.sh:650
@@ -251,6 +263,7 @@ scrape_configs:
     static_configs:
       - targets:
           - https://imgs.sh
+          - https://tuns.sh
   - job_name: blackbox_exporter_https_3xx_ip6
     metrics_path: "/probe"
     params:
@@ -268,6 +281,7 @@ scrape_configs:
     static_configs:
       - targets:
           - https://imgs.sh
+          - https://tuns.sh
   - job_name: blackbox_exporter_https_4xx
     metrics_path: "/probe"
     params:
@@ -325,6 +339,7 @@ scrape_configs:
           - http://imgs.sh
           - http://pgs.sh
           - http://feeds.sh
+          - http://tuns.sh
           - http://monitoring.pico.sh
           - http://minio.pico.sh
           - http://chat.pico.sh
@@ -351,6 +366,7 @@ scrape_configs:
           - http://imgs.sh
           - http://pgs.sh
           - http://feeds.sh
+          - http://tuns.sh
           - http://monitoring.pico.sh
           - http://minio.pico.sh
           - http://chat.pico.sh
