@@ -427,7 +427,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sish_tunnels_active",
+          "expr": "label_join(sish_tunnels_active, \"full_tunnel\", \"-\", \"user\", \"tunnel\")",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -996,13 +996,13 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Tuns",
   "uid": "a7431274-1d2e-4568-a48c-efc45628c484",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
