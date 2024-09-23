@@ -39,7 +39,7 @@ scrape_configs:
           - pastes.sh
           - imgs.sh
           - pgs.sh
-          - feeds.sh
+          - feeds.pico.sh
   - job_name: tuns
     tls_config:
       insecure_skip_verify: true
@@ -67,7 +67,7 @@ scrape_configs:
           - pastes.sh
           - imgs.sh
           - pgs.sh
-          - feeds.sh
+          - feeds.pico.sh
           - monitoring.pico.sh
           - minio.pico.sh
           - auth.pico.sh
@@ -106,7 +106,7 @@ scrape_configs:
           - pastes.sh
           - imgs.sh
           - pgs.sh
-          - feeds.sh
+          - feeds.pico.sh
           - tuns.sh
           - monitoring.pico.sh
           - minio.pico.sh
@@ -133,7 +133,7 @@ scrape_configs:
           - pastes.sh
           - imgs.sh
           - pgs.sh
-          - feeds.sh
+          - feeds.pico.sh
           - tuns.sh
           - monitoring.pico.sh
           - minio.pico.sh
@@ -160,13 +160,13 @@ scrape_configs:
           - pastes.sh:22
           - imgs.sh:22
           - pgs.sh:22
-          - feeds.sh:22
+          - feeds.pico.sh:22
           - tuns.sh:22
           - prose.sh:650
           - pastes.sh:650
           - imgs.sh:650
           - pgs.sh:650
-          - feeds.sh:650
+          - feeds.pico.sh:650
           - monitoring.pico.sh:650
           - minio.pico.sh:650
           - chat.pico.sh:650
@@ -191,13 +191,13 @@ scrape_configs:
           - pastes.sh:22
           - imgs.sh:22
           - pgs.sh:22
-          - feeds.sh:22
+          - feeds.pico.sh:22
           - tuns.sh:22
           - prose.sh:650
           - pastes.sh:650
           - imgs.sh:650
           - pgs.sh:650
-          - feeds.sh:650
+          - feeds.pico.sh:650
           - monitoring.pico.sh:650
           - minio.pico.sh:650
           - chat.pico.sh:650
@@ -221,7 +221,7 @@ scrape_configs:
           - https://prose.sh
           - https://pastes.sh
           - https://pgs.sh
-          - https://feeds.sh
+          - https://feeds.pico.sh
           - https://monitoring.pico.sh
           - https://chat.pico.sh
   - job_name: blackbox_exporter_https_2xx_ip6
@@ -243,7 +243,7 @@ scrape_configs:
           - https://prose.sh
           - https://pastes.sh
           - https://pgs.sh
-          - https://feeds.sh
+          - https://feeds.pico.sh
           - https://monitoring.pico.sh
           - https://chat.pico.sh
   - job_name: blackbox_exporter_https_3xx
@@ -338,7 +338,7 @@ scrape_configs:
           - http://pastes.sh
           - http://imgs.sh
           - http://pgs.sh
-          - http://feeds.sh
+          - http://feeds.pico.sh
           - http://tuns.sh
           - http://monitoring.pico.sh
           - http://minio.pico.sh
@@ -365,7 +365,7 @@ scrape_configs:
           - http://pastes.sh
           - http://imgs.sh
           - http://pgs.sh
-          - http://feeds.sh
+          - http://feeds.pico.sh
           - http://tuns.sh
           - http://monitoring.pico.sh
           - http://minio.pico.sh
