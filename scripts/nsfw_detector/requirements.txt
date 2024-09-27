@@ -1,0 +1,6 @@
+Pillow==10.4.0
+pycryptonight==0.0.1
+pyrx==0.3.0
+Requests==2.32.3
+torch==2.4.1
+transformers==4.45.1
