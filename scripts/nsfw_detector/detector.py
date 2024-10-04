@@ -12,21 +12,22 @@ CEND = '\033[0m'
 def images(root_dir):
     count = 0
     for filename in glob.iglob(root_dir + '**/*.jpg', recursive=True):
-        if count == 10:
-            return
+        #if count == 10:
+        #    return
         try:
             img = Image.open(filename)
             yield img, filename
         except Exception as err:
             print("failed to open file", err)
         count += 1
+    print(f"scanned {count} images")
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         raise Exception(f"{CRED}error!: please provide root image folder{CEND}")
     root_dir = sys.argv[1]
     print(f"root_dir {root_dir}")
-    threshold = 0.3
+    threshold = 0.6
 
     print(f"failure threshold is set to {threshold:.4f}")
 
@@ -44,7 +45,7 @@ if __name__ == '__main__':
         try:
             result = classify(img)
         except Exception as err:
-            print(f"{CYELLOW}err{CEND} (score:n/a) {filename} {err}")
+            # print(f"{CYELLOW}err{CEND} (score:n/a) {filename} {err}")
             continue
 
         nsfw_score = result[1]["score"]
@@ -52,4 +53,5 @@ if __name__ == '__main__':
         if nsfw_score > threshold:
             print(f"{CRED}failed{CEND} (score:{score_read}) {filename}")
         else:
-            print(f"{CGREEN}passed{CEND} (score:{score_read}) {filename}")
+            # print(f"{CGREEN}passed{CEND} (score:{score_read}) {filename}")
+            pass
