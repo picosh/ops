@@ -40,6 +40,7 @@ scrape_configs:
           - imgs.sh
           - pgs.sh
           - feeds.pico.sh
+          - pipe.pico.sh
   - job_name: tuns
     tls_config:
       insecure_skip_verify: true
@@ -71,6 +72,7 @@ scrape_configs:
           - monitoring.pico.sh
           - minio.pico.sh
           - auth.pico.sh
+          - pipe.pico.sh
   - job_name: minio
     tls_config:
       insecure_skip_verify: true
@@ -113,6 +115,7 @@ scrape_configs:
           - chat.pico.sh
           - auth.pico.sh
           - imgproxy.pico.sh
+          - pipe.pico.sh
   - job_name: blackbox_exporter_ping_ip6
     metrics_path: "/probe"
     params:
@@ -140,6 +143,7 @@ scrape_configs:
           - chat.pico.sh
           - auth.pico.sh
           - imgproxy.pico.sh
+          - pipe.pico.sh
   - job_name: blackbox_exporter_ssh
     metrics_path: "/probe"
     params:
@@ -161,6 +165,7 @@ scrape_configs:
           - imgs.sh:22
           - pgs.sh:22
           - feeds.pico.sh:22
+          - pipe.pico.sh:22
           - tuns.sh:22
           - prose.sh:650
           - pastes.sh:650
@@ -171,6 +176,7 @@ scrape_configs:
           - minio.pico.sh:650
           - chat.pico.sh:650
           - auth.pico.sh:650
+          - pipe.pico.sh:650
   - job_name: blackbox_exporter_ssh_ip6
     metrics_path: "/probe"
     params:
@@ -192,6 +198,7 @@ scrape_configs:
           - imgs.sh:22
           - pgs.sh:22
           - feeds.pico.sh:22
+          - pipe.pico.sh:22
           - tuns.sh:22
           - prose.sh:650
           - pastes.sh:650
@@ -202,6 +209,7 @@ scrape_configs:
           - minio.pico.sh:650
           - chat.pico.sh:650
           - auth.pico.sh:650
+          - pipe.pico.sh:650
   - job_name: blackbox_exporter_https_2xx
     metrics_path: "/probe"
     params:
@@ -224,6 +232,7 @@ scrape_configs:
           - https://feeds.pico.sh
           - https://monitoring.pico.sh
           - https://chat.pico.sh
+          - https://pipe.pico.sh
   - job_name: blackbox_exporter_https_2xx_ip6
     metrics_path: "/probe"
     params:
@@ -246,6 +255,7 @@ scrape_configs:
           - https://feeds.pico.sh
           - https://monitoring.pico.sh
           - https://chat.pico.sh
+          - https://pipe.pico.sh
   - job_name: blackbox_exporter_https_3xx
     metrics_path: "/probe"
     params:
@@ -345,6 +355,7 @@ scrape_configs:
           - http://chat.pico.sh
           - http://auth.pico.sh
           - http://imgproxy.pico.sh
+          - http://pipe.pico.sh
   - job_name: blackbox_exporter_http_3xx_ip6
     metrics_path: "/probe"
     params:
@@ -372,6 +383,7 @@ scrape_configs:
           - http://chat.pico.sh
           - http://auth.pico.sh
           - http://imgproxy.pico.sh
+          - http://pipe.pico.sh
   - job_name: blackbox_exporter_tls
     metrics_path: "/probe"
     params:
