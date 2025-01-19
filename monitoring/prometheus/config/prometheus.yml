@@ -39,6 +39,7 @@ scrape_configs:
           - pastes.sh
           - imgs.sh
           - pgs.sh
+          - nue.pgs.sh
           - feeds.pico.sh
           - pipe.pico.sh
   - job_name: tuns
@@ -49,6 +50,7 @@ scrape_configs:
     static_configs:
       - targets:
           - tuns.sh
+          - nue.tuns.sh
   - job_name: soju
     tls_config:
       insecure_skip_verify: true
@@ -68,6 +70,7 @@ scrape_configs:
           - pastes.sh
           - imgs.sh
           - pgs.sh
+          - nue.pgs.sh
           - feeds.pico.sh
           - monitoring.pico.sh
           - minio.pico.sh
@@ -108,8 +111,10 @@ scrape_configs:
           - pastes.sh
           - imgs.sh
           - pgs.sh
+          - nue.pgs.sh
           - feeds.pico.sh
           - tuns.sh
+          - nue.tuns.sh
           - monitoring.pico.sh
           - minio.pico.sh
           - chat.pico.sh
@@ -136,8 +141,10 @@ scrape_configs:
           - pastes.sh
           - imgs.sh
           - pgs.sh
+          - nue.pgs.sh
           - feeds.pico.sh
           - tuns.sh
+          - nue.tuns.sh
           - monitoring.pico.sh
           - minio.pico.sh
           - chat.pico.sh
@@ -164,13 +171,16 @@ scrape_configs:
           - pastes.sh:22
           - imgs.sh:22
           - pgs.sh:22
+          - nue.pgs.sh:22
           - feeds.pico.sh:22
           - pipe.pico.sh:22
           - tuns.sh:22
+          - nue.tuns.sh:22
           - prose.sh:650
           - pastes.sh:650
           - imgs.sh:650
           - pgs.sh:650
+          - nue.pgs.sh:650
           - feeds.pico.sh:650
           - monitoring.pico.sh:650
           - minio.pico.sh:650
@@ -197,13 +207,16 @@ scrape_configs:
           - pastes.sh:22
           - imgs.sh:22
           - pgs.sh:22
+          - nue.pgs.sh:22
           - feeds.pico.sh:22
           - pipe.pico.sh:22
           - tuns.sh:22
+          - nue.tuns.sh:22
           - prose.sh:650
           - pastes.sh:650
           - imgs.sh:650
           - pgs.sh:650
+          - nue.pgs.sh:650
           - feeds.pico.sh:650
           - monitoring.pico.sh:650
           - minio.pico.sh:650
@@ -229,6 +242,7 @@ scrape_configs:
           - https://prose.sh
           - https://pastes.sh
           - https://pgs.sh
+          - https://nue.pgs.sh
           - https://feeds.pico.sh
           - https://monitoring.pico.sh
           - https://chat.pico.sh
@@ -252,6 +266,7 @@ scrape_configs:
           - https://prose.sh
           - https://pastes.sh
           - https://pgs.sh
+          - https://nue.pgs.sh
           - https://feeds.pico.sh
           - https://monitoring.pico.sh
           - https://chat.pico.sh
@@ -274,6 +289,7 @@ scrape_configs:
       - targets:
           - https://imgs.sh
           - https://tuns.sh
+          - https://nue.tuns.sh
   - job_name: blackbox_exporter_https_3xx_ip6
     metrics_path: "/probe"
     params:
@@ -292,6 +308,7 @@ scrape_configs:
       - targets:
           - https://imgs.sh
           - https://tuns.sh
+          - https://nue.tuns.sh
   - job_name: blackbox_exporter_https_4xx
     metrics_path: "/probe"
     params:
@@ -348,8 +365,10 @@ scrape_configs:
           - http://pastes.sh
           - http://imgs.sh
           - http://pgs.sh
+          - http://nue.pgs.sh
           - http://feeds.pico.sh
           - http://tuns.sh
+          - http://nue.tuns.sh
           - http://monitoring.pico.sh
           - http://minio.pico.sh
           - http://chat.pico.sh
@@ -376,8 +395,10 @@ scrape_configs:
           - http://pastes.sh
           - http://imgs.sh
           - http://pgs.sh
+          - http://nue.pgs.sh
           - http://feeds.pico.sh
           - http://tuns.sh
+          - http://nue.tuns.sh
           - http://monitoring.pico.sh
           - http://minio.pico.sh
           - http://chat.pico.sh
