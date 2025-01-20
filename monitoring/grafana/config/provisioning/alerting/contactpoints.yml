@@ -2,7 +2,7 @@ apiVersion: 1
 
 contactPoints:
   - orgId: 1
-    name: IRC
+    name: Default
     receivers:
       - uid: J9QprMbVz
         type: webhook
@@ -10,9 +10,6 @@ contactPoints:
           url: ${NOTIFY_WEBHOOK}
           httpMethod: POST
           maxAlerts: '0'
-  - orgId: 1
-    name: Email
-    receivers:
       - uid: ec1f06c0-6a32-4698-a861-bac2ea89b7b3
         type: email
         settings:
