@@ -1,0 +1,24 @@
+services:
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    restart: always
+    volumes:
+      - /:/host:ro,rslave
+    network_mode: host
+    pid: host
+    command:
+      - --path.rootfs=/host
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    restart: always
+    volumes:
+      - /:/rootfs:ro,rslave
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro,rslave
+      - /dev/disk/:/dev/disk:ro
+    ports:
+      - 9080:8080
+    privileged: true
+    devices:
+      - /dev/kmsg

@@ -15,7 +15,7 @@ services:
       - ./grafana/data:/var/lib/grafana
     ports:
       - 3000:3000
-  blackbox_exporter:
+  blackbox-exporter:
     env_file:
       - .env.example
     ports:

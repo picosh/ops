@@ -1,33 +1,37 @@
 global:
   scrape_interval: 30s
   scrape_timeout: 10s
-
 rule_files:
   - alert.yml
-
 scrape_configs:
   - job_name: prometheus
     static_configs:
       - targets:
-          - prometheus:9090
+          - 'prometheus:9090'
   - job_name: grafana
     static_configs:
       - targets:
-          - grafana:3000
+          - 'grafana:3000'
+  - job_name: postgres
+    static_configs:
+      - targets:
+          - 'postgres-exporter:9187'
   - job_name: cadvisor
     static_configs:
       - targets:
-          - 10.0.0.48:9080 # oracle0
-          - 10.0.0.220:9080 # oracle1
-          - 10.0.0.134:9080 # oracle2
-          - 10.0.0.150:9080 # oracle3
+          - '10.0.0.48:9080'
+          - '10.0.0.220:9080'
+          - '10.0.0.134:9080'
+          - '10.0.0.150:9080'
+          - 'netcup0.nue.pico.sh:9080'
   - job_name: node_exporter
     static_configs:
       - targets:
-          - 10.0.0.48:9100 # oracle0
-          - 10.0.0.220:9100 # oracle1
-          - 10.0.0.134:9100 # oracle2
-          - 10.0.0.150:9100 # oracle3
+          - '10.0.0.48:9100'
+          - '10.0.0.220:9100'
+          - '10.0.0.134:9100'
+          - '10.0.0.150:9100'
+          - 'netcup0.nue.pico.sh:9100'
   - job_name: wish
     tls_config:
       insecure_skip_verify: true
@@ -90,7 +94,7 @@ scrape_configs:
       - targets:
           - imgproxy.pico.sh
   - job_name: blackbox_exporter_ping
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - icmp_check
@@ -102,7 +106,7 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
           - prose.sh
@@ -119,7 +123,7 @@ scrape_configs:
           - imgproxy.pico.sh
           - pipe.pico.sh
   - job_name: blackbox_exporter_ping_ip6
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - icmp_check_ip6
@@ -131,7 +135,7 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
           - prose.sh
@@ -148,7 +152,7 @@ scrape_configs:
           - imgproxy.pico.sh
           - pipe.pico.sh
   - job_name: blackbox_exporter_ssh
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - ssh_banner
@@ -160,29 +164,29 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - prose.sh:22
-          - pastes.sh:22
-          - pgs.sh:22
-          - nue.pgs.sh:22
-          - feeds.pico.sh:22
-          - pipe.pico.sh:22
-          - tuns.sh:22
-          - nue.tuns.sh:22
-          - prose.sh:650
-          - pastes.sh:650
-          - pgs.sh:650
-          - nue.pgs.sh:650
-          - feeds.pico.sh:650
-          - monitoring.pico.sh:650
-          - minio.pico.sh:650
-          - chat.pico.sh:650
-          - auth.pico.sh:650
-          - pipe.pico.sh:650
+          - 'prose.sh:22'
+          - 'pastes.sh:22'
+          - 'pgs.sh:22'
+          - 'nue.pgs.sh:22'
+          - 'feeds.pico.sh:22'
+          - 'pipe.pico.sh:22'
+          - 'tuns.sh:22'
+          - 'nue.tuns.sh:22'
+          - 'prose.sh:650'
+          - 'pastes.sh:650'
+          - 'pgs.sh:650'
+          - 'nue.pgs.sh:650'
+          - 'feeds.pico.sh:650'
+          - 'monitoring.pico.sh:650'
+          - 'minio.pico.sh:650'
+          - 'chat.pico.sh:650'
+          - 'auth.pico.sh:650'
+          - 'pipe.pico.sh:650'
   - job_name: blackbox_exporter_ssh_ip6
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - ssh_banner_ip6
@@ -194,29 +198,29 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - prose.sh:22
-          - pastes.sh:22
-          - pgs.sh:22
-          - nue.pgs.sh:22
-          - feeds.pico.sh:22
-          - pipe.pico.sh:22
-          - tuns.sh:22
-          - nue.tuns.sh:22
-          - prose.sh:650
-          - pastes.sh:650
-          - pgs.sh:650
-          - nue.pgs.sh:650
-          - feeds.pico.sh:650
-          - monitoring.pico.sh:650
-          - minio.pico.sh:650
-          - chat.pico.sh:650
-          - auth.pico.sh:650
-          - pipe.pico.sh:650
+          - 'prose.sh:22'
+          - 'pastes.sh:22'
+          - 'pgs.sh:22'
+          - 'nue.pgs.sh:22'
+          - 'feeds.pico.sh:22'
+          - 'pipe.pico.sh:22'
+          - 'tuns.sh:22'
+          - 'nue.tuns.sh:22'
+          - 'prose.sh:650'
+          - 'pastes.sh:650'
+          - 'pgs.sh:650'
+          - 'nue.pgs.sh:650'
+          - 'feeds.pico.sh:650'
+          - 'monitoring.pico.sh:650'
+          - 'minio.pico.sh:650'
+          - 'chat.pico.sh:650'
+          - 'auth.pico.sh:650'
+          - 'pipe.pico.sh:650'
   - job_name: blackbox_exporter_https_2xx
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - https_get_2xx
@@ -228,18 +232,18 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - https://prose.sh
-          - https://pastes.sh
-          - https://pgs.sh
-          - https://feeds.pico.sh
-          - https://monitoring.pico.sh
-          - https://chat.pico.sh
-          - https://pipe.pico.sh
+          - 'https://prose.sh'
+          - 'https://pastes.sh'
+          - 'https://pgs.sh'
+          - 'https://feeds.pico.sh'
+          - 'https://monitoring.pico.sh'
+          - 'https://chat.pico.sh'
+          - 'https://pipe.pico.sh'
   - job_name: blackbox_exporter_https_2xx_ip6
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - https_get_2xx_ip6
@@ -251,18 +255,18 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - https://prose.sh
-          - https://pastes.sh
-          - https://pgs.sh
-          - https://feeds.pico.sh
-          - https://monitoring.pico.sh
-          - https://chat.pico.sh
-          - https://pipe.pico.sh
+          - 'https://prose.sh'
+          - 'https://pastes.sh'
+          - 'https://pgs.sh'
+          - 'https://feeds.pico.sh'
+          - 'https://monitoring.pico.sh'
+          - 'https://chat.pico.sh'
+          - 'https://pipe.pico.sh'
   - job_name: blackbox_exporter_https_3xx
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - https_get_3xx
@@ -274,13 +278,13 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - https://tuns.sh
-          - https://nue.tuns.sh
+          - 'https://tuns.sh'
+          - 'https://nue.tuns.sh'
   - job_name: blackbox_exporter_https_3xx_ip6
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - https_get_3xx_ip6
@@ -292,13 +296,13 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - https://tuns.sh
-          - https://nue.tuns.sh
+          - 'https://tuns.sh'
+          - 'https://nue.tuns.sh'
   - job_name: blackbox_exporter_https_4xx
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - https_get_4xx
@@ -310,14 +314,14 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - https://minio.pico.sh
-          - https://auth.pico.sh
-          - https://nue.pgs.sh
+          - 'https://minio.pico.sh'
+          - 'https://auth.pico.sh'
+          - 'https://nue.pgs.sh'
   - job_name: blackbox_exporter_https_4xx_ip6
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - https_get_4xx_ip6
@@ -329,14 +333,14 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - https://minio.pico.sh
-          - https://auth.pico.sh
-          - https://nue.pgs.sh
+          - 'https://minio.pico.sh'
+          - 'https://auth.pico.sh'
+          - 'https://nue.pgs.sh'
   - job_name: blackbox_exporter_http_3xx
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - http_get_3xx
@@ -348,24 +352,24 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - http://prose.sh
-          - http://pastes.sh
-          - http://pgs.sh
-          - http://nue.pgs.sh
-          - http://feeds.pico.sh
-          - http://tuns.sh
-          - http://nue.tuns.sh
-          - http://monitoring.pico.sh
-          - http://minio.pico.sh
-          - http://chat.pico.sh
-          - http://auth.pico.sh
-          - http://imgproxy.pico.sh
-          - http://pipe.pico.sh
+          - 'http://prose.sh'
+          - 'http://pastes.sh'
+          - 'http://pgs.sh'
+          - 'http://nue.pgs.sh'
+          - 'http://feeds.pico.sh'
+          - 'http://tuns.sh'
+          - 'http://nue.tuns.sh'
+          - 'http://monitoring.pico.sh'
+          - 'http://minio.pico.sh'
+          - 'http://chat.pico.sh'
+          - 'http://auth.pico.sh'
+          - 'http://imgproxy.pico.sh'
+          - 'http://pipe.pico.sh'
   - job_name: blackbox_exporter_http_3xx_ip6
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - http_get_3xx_ip6
@@ -377,24 +381,24 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - http://prose.sh
-          - http://pastes.sh
-          - http://pgs.sh
-          - http://nue.pgs.sh
-          - http://feeds.pico.sh
-          - http://tuns.sh
-          - http://nue.tuns.sh
-          - http://monitoring.pico.sh
-          - http://minio.pico.sh
-          - http://chat.pico.sh
-          - http://auth.pico.sh
-          - http://imgproxy.pico.sh
-          - http://pipe.pico.sh
+          - 'http://prose.sh'
+          - 'http://pastes.sh'
+          - 'http://pgs.sh'
+          - 'http://nue.pgs.sh'
+          - 'http://feeds.pico.sh'
+          - 'http://tuns.sh'
+          - 'http://nue.tuns.sh'
+          - 'http://monitoring.pico.sh'
+          - 'http://minio.pico.sh'
+          - 'http://chat.pico.sh'
+          - 'http://auth.pico.sh'
+          - 'http://imgproxy.pico.sh'
+          - 'http://pipe.pico.sh'
   - job_name: blackbox_exporter_tls
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - tcps_connect
@@ -406,12 +410,12 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - irc.pico.sh:6697
+          - 'irc.pico.sh:6697'
   - job_name: blackbox_exporter_tls_ip6
-    metrics_path: "/probe"
+    metrics_path: /probe
     params:
       module:
         - tcps_connect_ip6
@@ -423,7 +427,7 @@ scrape_configs:
           - __param_target
         target_label: instance
       - target_label: __address__
-        replacement: blackbox_exporter:9115
+        replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - irc.pico.sh:6697
+          - 'irc.pico.sh:6697'

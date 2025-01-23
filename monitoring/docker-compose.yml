@@ -26,11 +26,25 @@ services:
     profiles:
       - monitoring
       - all
-  blackbox_exporter:
+  blackbox-exporter:
     image: prom/blackbox-exporter:latest
     volumes:
-      - ./blackbox_exporter/config:/etc/blackbox_exporter
-    command: --config.file=/etc/blackbox_exporter/blackbox.yml
+      - ./blackbox-exporter/config:/etc/blackbox-exporter
+    command: --config.file=/etc/blackbox-exporter/blackbox.yml
+    restart: always
+    profiles:
+      - monitoring
+      - all
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:latest
+    environment:
+      DATA_SOURCE_URI: ${DATABASE_URL:-postgresql://localhost:5432/postgres?sslmode=disable}
+    command: |
+      --collector.long_running_transactions
+      --collector.process_idle
+      --collector.stat_activity_autovacuum
+      --collector.stat_wal_receiver
+      --collector.statio_user_indexes
     restart: always
     profiles:
       - monitoring
