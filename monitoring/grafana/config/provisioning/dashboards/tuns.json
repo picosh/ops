@@ -355,7 +355,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "time() - sish_connections_time",
+          "expr": "time() - sish_connections_time{instance=~\"$instance\"}",
           "instant": false,
           "legendFormat": "{{instance}} - {{user}} - {{connection}}",
           "range": true,
@@ -737,7 +737,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "process_resident_memory_bytes{job=\"tuns\"}",
+          "expr": "process_resident_memory_bytes{job=\"tuns\", instance=~\"$instance\"}",
           "instant": false,
           "legendFormat": "Memory - {{instance}}",
           "range": true,
@@ -841,7 +841,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "process_open_fds{job=\"tuns\"}",
+          "expr": "process_open_fds{job=\"tuns\", instance=~\"$instance\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "Fds - {{instance}}",
@@ -945,7 +945,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "go_goroutines{job=\"tuns\"}",
+          "expr": "go_goroutines{job=\"tuns\", instance=~\"$instance\"}",
           "instant": false,
           "legendFormat": "Goroutines - {{instance}}",
           "range": true,
@@ -1049,7 +1049,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "rate(process_network_receive_bytes_total{job=\"tuns\"}[$__rate_interval])",
+          "expr": "rate(process_network_receive_bytes_total{job=\"tuns\", instance=~\"$instance\"}[$__rate_interval])",
           "instant": false,
           "legendFormat": "RX - {{instance}}",
           "range": true,
@@ -1061,7 +1061,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "rate(process_network_transmit_bytes_total{job=\"tuns\"}[$__rate_interval])",
+          "expr": "rate(process_network_transmit_bytes_total{job=\"tuns\", instance=~\"$instance\"}[$__rate_interval])",
           "hide": false,
           "instant": false,
           "legendFormat": "TX - {{instance}}",
@@ -1080,7 +1080,6 @@
   "templating": {
     "list": [
       {
-        "allValue": "",
         "current": {
           "text": "All",
           "value": "$__all"
@@ -1111,6 +1110,6 @@
   "timezone": "",
   "title": "Tuns",
   "uid": "a7431274-1d2e-4568-a48c-efc45628c484",
-  "version": 6,
+  "version": 7,
   "weekStart": ""
 }
