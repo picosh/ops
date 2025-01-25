@@ -38,7 +38,7 @@ services:
   postgres-exporter:
     image: quay.io/prometheuscommunity/postgres-exporter:latest
     environment:
-      DATA_SOURCE_URI: ${DATABASE_URL:-postgresql://localhost:5432/postgres?sslmode=disable}
+      DATA_SOURCE_NAME: ${DATABASE_URL:-postgresql://localhost:5432/postgres?sslmode=disable}
     command: |
       --collector.long_running_transactions
       --collector.process_idle
