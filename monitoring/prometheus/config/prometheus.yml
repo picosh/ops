@@ -53,13 +53,13 @@ scrape_configs:
     metrics_path: /_web/metrics
     static_configs:
       - targets:
-          - pico.sh
           - prose.sh
           - pastes.sh
           - pgs.sh
           - nue.pgs.sh
           - feeds.pico.sh
           - pipe.pico.sh
+          - auth.pico.sh
   - job_name: tuns
     tls_config:
       insecure_skip_verify: true
@@ -84,6 +84,7 @@ scrape_configs:
     metrics_path: /_caddy/metrics
     static_configs:
       - targets:
+          - pico.sh
           - prose.sh
           - pastes.sh
           - pgs.sh
