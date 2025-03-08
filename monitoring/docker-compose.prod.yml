@@ -39,7 +39,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: fd00:dead:beef::/48
+        - subnet: 172.21.0.0/16
+        - subnet: fd00:dead:beef:21::/48
   caddy:
     name: pico_pgs
     external: true
