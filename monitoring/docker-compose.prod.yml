@@ -11,6 +11,7 @@ services:
       - "80:80"
       - "443:443"
   prometheus:
+    dns: 1.1.1.1
     networks:
       - default
       - caddy
@@ -27,6 +28,7 @@ services:
     volumes:
       - ./grafana/data:/var/lib/grafana
   blackbox-exporter:
+    dns: 1.1.1.1
     networks:
       - default
       - ip6net
