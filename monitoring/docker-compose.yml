@@ -49,3 +49,15 @@ services:
     profiles:
       - monitoring
       - all
+  sql-exporter:
+    image: burningalchemist/sql_exporter:latest
+    volumes:
+      - ./sql-exporter/config:/config
+    environment:
+      SQLEXPORTER_TARGET_DSN: ${DATABASE_URL:-postgresql://localhost:5432/postgres?sslmode=disable}
+    command: |
+      -config.file=/config/sql.yml
+    restart: always
+    profiles:
+      - monitoring
+      - all

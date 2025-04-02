@@ -16,6 +16,10 @@ scrape_configs:
     static_configs:
       - targets:
           - 'postgres-exporter:9187'
+  - job_name: sql
+    static_configs:
+      - targets:
+          - 'sql-exporter:9399'
   - job_name: cadvisor
     static_configs:
       - targets:

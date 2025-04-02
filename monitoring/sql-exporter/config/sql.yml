@@ -1,0 +1,52 @@
+target:
+  name: "pico"
+  collectors:
+    - "*"
+
+collectors:
+  - collector_name: pico_db
+    metrics:
+      - metric_name: users_count
+        type: gauge
+        help: The count of the users from the database
+        values: [count]
+        query: |
+          select count(id) as count from app_users
+      - metric_name: projects_count
+        type: gauge
+        help: The count of the projects from the database
+        values: [count]
+        query: |
+          select count(id) as count from projects
+      - metric_name: public_keys_count
+        type: gauge
+        help: The count of the public keys from the database
+        values: [count]
+        query: |
+          select count(id) as count from public_keys
+      - metric_name: feed_items_count
+        type: gauge
+        help: The count of the feed items from the database
+        values: [count]
+        query: |
+          select count(id) as count from feed_items
+      - metric_name: tokens_count
+        type: gauge
+        help: The count of the tokens from the database
+        values: [count]
+        query: |
+          select count(id) as count from tokens
+      - metric_name: posts_count
+        type: gauge
+        help: The count of the posts from the database
+        key_labels: [cur_space]
+        values: [count]
+        query: |
+          select count(id) as count, cur_space from posts group by cur_space
+      - metric_name: feature_flags_count
+        type: gauge
+        help: The count of the feature flags from the database
+        key_labels: [name]
+        values: [count]
+        query: |
+          select count(id) as count, name from feature_flags group by name
