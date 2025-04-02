@@ -1,49 +1,50 @@
 target:
   name: "pico"
+  data_source_name: ${SQLEXPORTER_TARGET_DSN}
   collectors:
     - "*"
 
 collectors:
   - collector_name: pico_db
     metrics:
-      - metric_name: users_count
+      - metric_name: pg_sql_pico_users_count
         type: gauge
         help: The count of the users from the database
         values: [count]
         query: |
           select count(id) as count from app_users
-      - metric_name: projects_count
+      - metric_name: pg_sql_pico_projects_count
         type: gauge
         help: The count of the projects from the database
         values: [count]
         query: |
           select count(id) as count from projects
-      - metric_name: public_keys_count
+      - metric_name: pg_sql_pico_public_keys_count
         type: gauge
         help: The count of the public keys from the database
         values: [count]
         query: |
           select count(id) as count from public_keys
-      - metric_name: feed_items_count
+      - metric_name: pg_sql_pico_feed_items_count
         type: gauge
         help: The count of the feed items from the database
         values: [count]
         query: |
           select count(id) as count from feed_items
-      - metric_name: tokens_count
+      - metric_name: pg_sql_pico_tokens_count
         type: gauge
         help: The count of the tokens from the database
         values: [count]
         query: |
           select count(id) as count from tokens
-      - metric_name: posts_count
+      - metric_name: pg_sql_pico_posts_count
         type: gauge
         help: The count of the posts from the database
         key_labels: [cur_space]
         values: [count]
         query: |
           select count(id) as count, cur_space from posts group by cur_space
-      - metric_name: feature_flags_count
+      - metric_name: pg_sql_pico_feature_flags_count
         type: gauge
         help: The count of the feature flags from the database
         key_labels: [name]
