@@ -19,6 +19,11 @@ services:
       - .env.prod
     volumes:
       - ./prometheus/data:/prometheus
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "3"
+        max-size: "1024m"
   grafana:
     networks:
       - default
@@ -34,6 +39,11 @@ services:
       - ip6net
     env_file:
       - .env.prod
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "3"
+        max-size: "1024m"
 
 networks:
   ip6net:
