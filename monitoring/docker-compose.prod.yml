@@ -54,5 +54,5 @@ networks:
         - subnet: 172.21.0.0/16
         - subnet: fd00:dead:beef:21::/112
   caddy:
-    name: pico_pgs
+    name: pico_prose
     external: true
