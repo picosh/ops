@@ -47,7 +47,6 @@ scrape_configs:
           - prose.sh
           - pastes.sh
           - pgs.sh
-          - nue.pgs.sh
           - feeds.pico.sh
           - pipe.pico.sh
   - job_name: app-web
