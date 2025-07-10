@@ -94,17 +94,17 @@ scrape_configs:
           - nue.pgs.sh
           - feeds.pico.sh
           - monitoring.pico.sh
-          - minio.pico.sh
+          # - minio.pico.sh
           - auth.pico.sh
           - pipe.pico.sh
-  - job_name: minio
-    tls_config:
-      insecure_skip_verify: true
-    scheme: https
-    metrics_path: /minio/v2/metrics/cluster
-    static_configs:
-      - targets:
-          - minio.pico.sh
+  # - job_name: minio
+  #   tls_config:
+  #     insecure_skip_verify: true
+  #   scheme: https
+  #   metrics_path: /minio/v2/metrics/cluster
+  #   static_configs:
+  #     - targets:
+  #         - minio.pico.sh
   - job_name: imgprpxy
     tls_config:
       insecure_skip_verify: true
@@ -136,7 +136,7 @@ scrape_configs:
           - tuns.sh
           - nue.tuns.sh
           - monitoring.pico.sh
-          - minio.pico.sh
+          # - minio.pico.sh
           - chat.pico.sh
           - auth.pico.sh
           - imgproxy.pico.sh
@@ -165,7 +165,7 @@ scrape_configs:
           - tuns.sh
           - nue.tuns.sh
           - monitoring.pico.sh
-          - minio.pico.sh
+          # - minio.pico.sh
           - chat.pico.sh
           - auth.pico.sh
           - imgproxy.pico.sh
@@ -200,7 +200,7 @@ scrape_configs:
           - 'nue.pgs.sh:650'
           - 'feeds.pico.sh:650'
           - 'monitoring.pico.sh:650'
-          - 'minio.pico.sh:650'
+          # - 'minio.pico.sh:650'
           - 'chat.pico.sh:650'
           - 'auth.pico.sh:650'
           - 'pipe.pico.sh:650'
@@ -234,7 +234,7 @@ scrape_configs:
           - 'nue.pgs.sh:650'
           - 'feeds.pico.sh:650'
           - 'monitoring.pico.sh:650'
-          - 'minio.pico.sh:650'
+          # - 'minio.pico.sh:650'
           - 'chat.pico.sh:650'
           - 'auth.pico.sh:650'
           - 'pipe.pico.sh:650'
@@ -336,7 +336,7 @@ scrape_configs:
         replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - 'https://minio.pico.sh'
+          # - 'https://minio.pico.sh'
           - 'https://auth.pico.sh'
           - 'https://nue.pgs.sh'
   - job_name: blackbox_exporter_https_4xx_ip6
@@ -355,7 +355,7 @@ scrape_configs:
         replacement: 'blackbox-exporter:9115'
     static_configs:
       - targets:
-          - 'https://minio.pico.sh'
+          # - 'https://minio.pico.sh'
           - 'https://auth.pico.sh'
           - 'https://nue.pgs.sh'
   - job_name: blackbox_exporter_http_3xx
@@ -382,7 +382,7 @@ scrape_configs:
           - 'http://tuns.sh'
           - 'http://nue.tuns.sh'
           - 'http://monitoring.pico.sh'
-          - 'http://minio.pico.sh'
+          # - 'http://minio.pico.sh'
           - 'http://chat.pico.sh'
           - 'http://auth.pico.sh'
           - 'http://imgproxy.pico.sh'
@@ -411,7 +411,7 @@ scrape_configs:
           - 'http://tuns.sh'
           - 'http://nue.tuns.sh'
           - 'http://monitoring.pico.sh'
-          - 'http://minio.pico.sh'
+          # - 'http://minio.pico.sh'
           - 'http://chat.pico.sh'
           - 'http://auth.pico.sh'
           - 'http://imgproxy.pico.sh'
