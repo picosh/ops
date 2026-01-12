@@ -51,3 +51,10 @@ collectors:
         values: [count]
         query: |
           select count(id) as count, name from feature_flags group by name
+      - metric_name: pg_sql_pico_feature_flags_not_expired_count
+        type: gauge
+        help: The count of the feature flags from the database
+        key_labels: [name]
+        values: [count]
+        query: |
+          select count(id) as count, name from feature_flags where expires_at > now() group by name
