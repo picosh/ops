@@ -3777,7 +3777,7 @@
     "preload": false,
     "tags": [],
     "timeSettings": {
-        "autoRefresh": "",
+        "autoRefresh": "5s",
         "autoRefreshIntervals": [
             "5s",
             "10s",
@@ -3791,7 +3791,7 @@
             "1d"
         ],
         "fiscalYearStartMonth": 0,
-        "from": "now-6h",
+        "from": "now-24h",
         "hideTimepicker": false,
         "timezone": "browser",
         "to": "now"
@@ -3803,9 +3803,7 @@
             "spec": {
                 "allowCustomValue": true,
                 "current": {
-                    "text": [
-                        "All"
-                    ],
+                    "text": "All",
                     "value": [
                         "$__all"
                     ]
