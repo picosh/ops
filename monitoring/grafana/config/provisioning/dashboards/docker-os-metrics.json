@@ -3777,7 +3777,7 @@
     "preload": false,
     "tags": [],
     "timeSettings": {
-        "autoRefresh": "30s",
+        "autoRefresh": "",
         "autoRefreshIntervals": [
             "5s",
             "10s",
@@ -3804,10 +3804,10 @@
                 "allowCustomValue": true,
                 "current": {
                     "text": [
-                        "c0"
+                        "All"
                     ],
                     "value": [
-                        "c0"
+                        "$__all"
                     ]
                 },
                 "definition": "label_values(node_uname_info, nodename)",
