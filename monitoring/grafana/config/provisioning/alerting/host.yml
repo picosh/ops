@@ -1,0 +1,418 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: Host
+    folder: Default
+    interval: 1m
+    rules:
+      - uid: host-disk-space-low
+        title: Host Disk Space Low
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: node_filesystem_avail_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"} / node_filesystem_size_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"}
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.1
+                    type: lt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ $labels.mountpoint }} on {{ $labels.instance }} has {{ humanizePercentage $values.A.Value }} free'
+
+      - uid: host-disk-filling
+        title: Host Disk Filling
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 21600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              # Only flag disks that are already past 75% so a slow-growing empty disk doesn't page.
+              expr: |
+                predict_linear(node_filesystem_avail_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"}[6h], 24 * 3600)
+                and node_filesystem_avail_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"} / node_filesystem_size_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"} < 0.25
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0
+                    type: lt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ $labels.mountpoint }} on {{ $labels.instance }} will fill within 24 hours at the current rate'
+
+      - uid: host-inodes-low
+        title: Host Inodes Low
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: node_filesystem_files_free{fstype=~"ext[234]|xfs|btrfs|zfs"} / node_filesystem_files{fstype=~"ext[234]|xfs|btrfs|zfs"}
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.1
+                    type: lt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ $labels.mountpoint }} on {{ $labels.instance }} has {{ humanizePercentage $values.A.Value }} of inodes free'
+
+      - uid: host-filesystem-read-only
+        title: Host Filesystem Read Only
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: node_filesystem_readonly{fstype=~"ext[234]|xfs|btrfs|zfs"}
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: '{{ $labels.mountpoint }} on {{ $labels.instance }} is mounted read-only'
+
+      - uid: host-memory-low
+        title: Host Memory Low
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.1
+                    type: lt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ $labels.instance }} has {{ humanizePercentage $values.A.Value }} memory available'
+
+      - uid: host-oom-kill
+        title: Host OOM Kill
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: increase(node_vmstat_oom_kill[5m])
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 0s
+        labels:
+          severity: warning
+        annotations:
+          summary: The kernel OOM killer ran on {{ $labels.instance }}
+
+      - uid: host-cpu-high
+        title: Host CPU High
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: 1 - avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.9
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ $labels.instance }} CPU is at {{ humanizePercentage $values.A.Value }}'
+
+      - uid: host-cpu-steal-high
+        title: Host CPU Steal High
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: avg by (instance) (rate(node_cpu_seconds_total{mode="steal"}[5m]))
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.1
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ $labels.instance }} CPU steal is at {{ humanizePercentage $values.A.Value }}'
+
+      - uid: host-disk-io-saturated
+        title: Host Disk IO Saturated
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: rate(node_disk_io_time_seconds_total[5m])
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.9
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ $labels.device }} on {{ $labels.instance }} is busy {{ humanizePercentage $values.A.Value }} of the time'
+
+      - uid: host-clock-not-synced
+        title: Host Clock Not Synced
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: node_timex_sync_status
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 1
+                    type: lt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ $labels.instance }} clock is not synchronized'
+
+      - uid: host-conntrack-high
+        title: Host Conntrack High
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: node_nf_conntrack_entries / node_nf_conntrack_entries_limit
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.8
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ $labels.instance }} conntrack table is {{ humanizePercentage $values.A.Value }} full'
+
+      - uid: host-rebooted
+        title: Host Rebooted
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: time() - node_boot_time_seconds
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 600
+                    type: lt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 0s
+        labels:
+          severity: info
+        annotations:
+          summary: '{{ $labels.instance }} rebooted {{ humanizeDuration $values.A.Value }} ago'

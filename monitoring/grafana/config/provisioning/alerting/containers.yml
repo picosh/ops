@@ -1,0 +1,109 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: Containers
+    folder: Default
+    interval: 1m
+    rules:
+      - uid: container-oom-killed
+        title: Container OOM Killed
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: increase(container_oom_events_total{name!=""}[5m])
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 0s
+        labels:
+          severity: warning
+        annotations:
+          summary: Container {{ $labels.name }} on {{ $labels.instance }} was OOM killed
+
+      - uid: container-memory-near-limit
+        title: Container Memory Near Limit
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: container_memory_working_set_bytes{name!=""} / (container_spec_memory_limit_bytes{name!=""} > 0)
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.9
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Container {{ $labels.name }} on {{ $labels.instance }} is using {{ humanizePercentage $values.A.Value }} of its memory limit
+
+      - uid: container-restarting
+        title: Container Restarting
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 1800
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: changes(container_start_time_seconds{name!=""}[15m])
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 2
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 0s
+        labels:
+          severity: warning
+        annotations:
+          summary: Container {{ $labels.name }} on {{ $labels.instance }} restarted {{ $values.A.Value }} times in 15 minutes

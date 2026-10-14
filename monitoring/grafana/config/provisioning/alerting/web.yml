@@ -1,0 +1,79 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: Web
+    folder: Default
+    interval: 1m
+    rules:
+      - uid: caddy-5xx-rate-high
+        title: Caddy 5xx Rate High
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              # Ignore idle servers so a handful of errors on low traffic doesn't page.
+              expr: |
+                sum by (instance) (rate(caddy_http_request_duration_seconds_count{code=~"5.."}[5m]))
+                / sum by (instance) (rate(caddy_http_request_duration_seconds_count[5m]))
+                and sum by (instance) (rate(caddy_http_request_duration_seconds_count[5m])) > 0.1
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.05
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ humanizePercentage $values.A.Value }} of requests through {{ $labels.instance }} are returning 5xx'
+
+      - uid: probe-slow
+        title: Probe Slow
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 1200
+              to: 0
+            datasourceUid: PBFA97CFB590B2093
+            model:
+              editorMode: code
+              expr: avg_over_time(probe_duration_seconds{job=~"blackbox_exporter_https_.*"}[10m])
+              instant: true
+              range: false
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator:
+                    params:
+                      - 5
+                    type: gt
+              refId: C
+        noDataState: OK
+        execErrState: Error
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: '{{ $labels.instance }} is taking {{ humanizeDuration $values.A.Value }} to respond'
