@@ -70,7 +70,7 @@ groups:
                       - 5
                     type: gt
               refId: C
-        noDataState: OK
+        noDataState: NoData
         execErrState: Error
         for: 10m
         labels:

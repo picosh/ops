@@ -32,7 +32,7 @@ groups:
                       - 1
                     type: lt
               refId: C
-        noDataState: OK
+        noDataState: NoData
         execErrState: Error
         for: 1m
         labels:
@@ -66,7 +66,7 @@ groups:
                       - 0.8
                     type: gt
               refId: C
-        noDataState: OK
+        noDataState: NoData
         execErrState: Error
         for: 5m
         labels:
@@ -100,7 +100,7 @@ groups:
                       - 0
                     type: gt
               refId: C
-        noDataState: OK
+        noDataState: NoData
         execErrState: Error
         for: 0s
         labels:
@@ -134,7 +134,7 @@ groups:
                       - 3600
                     type: gt
               refId: C
-        noDataState: OK
+        noDataState: NoData
         execErrState: Error
         for: 5m
         labels:

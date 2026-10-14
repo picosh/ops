@@ -32,7 +32,7 @@ groups:
                       - 0
                     type: gt
               refId: C
-        noDataState: OK
+        noDataState: NoData
         execErrState: Error
         for: 0s
         labels:
@@ -100,7 +100,7 @@ groups:
                       - 2
                     type: gt
               refId: C
-        noDataState: OK
+        noDataState: NoData
         execErrState: Error
         for: 0s
         labels:
