@@ -41,6 +41,9 @@ scrape_configs:
       insecure_skip_verify: true
     scheme: https
     metrics_path: /_ssh/metrics
+    params:
+      x-authorization:
+        - '<token>'
     static_configs:
       - targets:
           - pico.sh
@@ -54,6 +57,9 @@ scrape_configs:
       insecure_skip_verify: true
     scheme: https
     metrics_path: /_web/metrics
+    params:
+      x-authorization:
+        - '<token>'
     static_configs:
       - targets:
           - prose.sh
@@ -77,6 +83,9 @@ scrape_configs:
       insecure_skip_verify: true
     scheme: https
     metrics_path: /_app/metrics
+    params:
+      x-authorization:
+        - '<token>'
     static_configs:
       - targets:
           - irc.pico.sh
@@ -85,6 +94,9 @@ scrape_configs:
       insecure_skip_verify: true
     scheme: https
     metrics_path: /_caddy/metrics
+    params:
+      x-authorization:
+        - '<token>'
     static_configs:
       - targets:
           - pico.sh
@@ -107,6 +119,9 @@ scrape_configs:
   #         - minio.pico.sh
   - job_name: imgproxy
     metrics_path: /_imgproxy/metrics
+    params:
+      x-authorization:
+        - '<token>'
     tls_config:
       insecure_skip_verify: true
     scheme: https
