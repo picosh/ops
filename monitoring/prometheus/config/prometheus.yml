@@ -74,6 +74,9 @@ scrape_configs:
       insecure_skip_verify: true
     scheme: https
     metrics_path: /_sish/metrics
+    params:
+      x-authorization:
+        - '<token>'
     static_configs:
       - targets:
           - tuns.sh
