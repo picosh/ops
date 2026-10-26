@@ -15,7 +15,7 @@
       }
     ]
   },
-  "description": "HTTP and SSH access by pico user across pgs, prose, pastes and pipe.",
+  "description": "HTTP and SSH access by pico user across pgs, prose, pastes, pipe and tuns.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
@@ -43,7 +43,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "count(sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\"}[$__range])) > 0)",
+          "expr": "count(sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range])) > 0)",
           "legendFormat": "",
           "refId": "A",
           "editorMode": "code",
@@ -111,7 +111,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\"}[$__range]))",
+          "expr": "sum(increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range]))",
           "legendFormat": "",
           "refId": "A",
           "editorMode": "code",
@@ -179,7 +179,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(increase(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\"}[$__range]))",
+          "expr": "sum(increase(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range]))",
           "legendFormat": "",
           "refId": "A",
           "editorMode": "code",
@@ -247,7 +247,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\"}[$__range]))",
+          "expr": "sum(increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\", instance=~\"$instance\"}[$__range]))",
           "legendFormat": "",
           "refId": "A",
           "editorMode": "code",
@@ -328,7 +328,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum by (user) (rate(pico_http_requests_total{app=~\"$app\", user=~\"$user\"}[$__rate_interval])) and on (user) topk($topn, sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\"}[$__range] @ end())) > 0)",
+          "expr": "sum by (user) (rate(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__rate_interval])) and on (user) topk($topn, sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range] @ end())) > 0)",
           "legendFormat": "{{user}}",
           "refId": "A",
           "editorMode": "code",
@@ -427,7 +427,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum by (user) (rate(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\"}[$__rate_interval])) and on (user) topk($topn, sum by (user) (increase(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\"}[$__range] @ end())) > 0)",
+          "expr": "sum by (user) (rate(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__rate_interval])) and on (user) topk($topn, sum by (user) (increase(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range] @ end())) > 0)",
           "legendFormat": "{{user}}",
           "refId": "A",
           "editorMode": "code",
@@ -526,7 +526,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\"}[$__range]))",
+          "expr": "sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range]))",
           "legendFormat": "",
           "refId": "A",
           "editorMode": "code",
@@ -539,7 +539,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum by (user) (increase(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\"}[$__range]))",
+          "expr": "sum by (user) (increase(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range]))",
           "legendFormat": "",
           "refId": "B",
           "editorMode": "code",
@@ -552,7 +552,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "(sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", status=~\"5..\"}[$__range])) or 0 * sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\"}[$__range]))) / sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\"}[$__range]))",
+          "expr": "(sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", status=~\"5..\"}[$__range])) or 0 * sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range]))) / sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range]))",
           "legendFormat": "",
           "refId": "C",
           "editorMode": "code",
@@ -565,7 +565,20 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "histogram_quantile(0.95, sum by (user, le) (rate(pico_http_request_duration_seconds_bucket{app=~\"$app\", user=~\"$user\"}[$__range])))",
+          "expr": "(sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", status=~\"4..\"}[$__range])) or 0 * sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range]))) / sum by (user) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range]))",
+          "legendFormat": "",
+          "refId": "G",
+          "editorMode": "code",
+          "instant": true,
+          "range": false,
+          "format": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "histogram_quantile(0.95, sum by (user, le) (rate(pico_http_request_duration_seconds_bucket{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range])))",
           "legendFormat": "",
           "refId": "D",
           "editorMode": "code",
@@ -578,7 +591,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "count by (user) (sum by (user, app) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\"}[$__range])) > 0)",
+          "expr": "count by (user) (sum by (user, app) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__range])) > 0)",
           "legendFormat": "",
           "refId": "E",
           "editorMode": "code",
@@ -591,7 +604,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum by (user) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\"}[$__range]))",
+          "expr": "sum by (user) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\", instance=~\"$instance\"}[$__range]))",
           "legendFormat": "",
           "refId": "F",
           "editorMode": "code",
@@ -715,6 +728,26 @@
           {
             "matcher": {
               "id": "byName",
+              "options": "Value #G"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "4xx share"
+              },
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
               "options": "Value #D"
             },
             "properties": [
@@ -811,7 +844,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum by (app) (rate(pico_http_requests_total{app=~\"$app\", user=~\"$user\"}[$__rate_interval]))",
+          "expr": "sum by (app) (rate(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__rate_interval]))",
           "legendFormat": "{{app}}",
           "refId": "A",
           "editorMode": "code",
@@ -910,7 +943,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum by (class) (label_replace(rate(pico_http_requests_total{app=~\"$app\", user=~\"$user\"}[$__rate_interval]), \"class\", \"${1}xx\", \"status\", \"([0-9])[0-9][0-9]\"))",
+          "expr": "sum by (class) (label_replace(rate(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__rate_interval]), \"class\", \"${1}xx\", \"status\", \"([0-9])[0-9][0-9]\"))",
           "legendFormat": "{{class}}",
           "refId": "A",
           "editorMode": "code",
@@ -1070,7 +1103,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "histogram_quantile(0.95, sum by (app, le) (rate(pico_http_request_duration_seconds_bucket{app=~\"$app\", user=~\"$user\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.95, sum by (app, le) (rate(pico_http_request_duration_seconds_bucket{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__rate_interval])))",
           "legendFormat": "{{app}}",
           "refId": "A",
           "editorMode": "code",
@@ -1169,7 +1202,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "histogram_quantile(0.5, sum by (le) (rate(pico_http_request_duration_seconds_bucket{app=~\"$app\", user=~\"$user\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.5, sum by (le) (rate(pico_http_request_duration_seconds_bucket{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__rate_interval])))",
           "legendFormat": "p50",
           "refId": "A",
           "editorMode": "code",
@@ -1180,7 +1213,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "histogram_quantile(0.95, sum by (le) (rate(pico_http_request_duration_seconds_bucket{app=~\"$app\", user=~\"$user\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(pico_http_request_duration_seconds_bucket{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__rate_interval])))",
           "legendFormat": "p95",
           "refId": "B",
           "editorMode": "code",
@@ -1191,7 +1224,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "histogram_quantile(0.99, sum by (le) (rate(pico_http_request_duration_seconds_bucket{app=~\"$app\", user=~\"$user\"}[$__rate_interval])))",
+          "expr": "histogram_quantile(0.99, sum by (le) (rate(pico_http_request_duration_seconds_bucket{app=~\"$app\", user=~\"$user\", instance=~\"$instance\"}[$__rate_interval])))",
           "legendFormat": "p99",
           "refId": "C",
           "editorMode": "code",
@@ -1278,6 +1311,432 @@
       },
       "id": 13,
       "panels": [],
+      "title": "Projects and tunnels",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "description": "The most requested over the whole time range. A pgs project or a tuns tunnel's hostname. Includes pgs-cdn when selected. CDN cache misses are also counted by pgs, so deselect pgs-cdn to count each request once.",
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 46
+      },
+      "id": 14,
+      "title": "Requests per second by project or tunnel (top $topn)",
+      "type": "timeseries",
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "sum by (app, user, resource) (rate(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__rate_interval])) and on (app, user, resource) topk($topn, sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range] @ end())) > 0)",
+          "legendFormat": "{{resource}} ({{user}})",
+          "refId": "A",
+          "editorMode": "code",
+          "range": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 8,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "unit": "reqps",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "description": "The most bytes served over the whole time range. A pgs project or a tuns tunnel's hostname. Includes pgs-cdn when selected. CDN cache misses are also counted by pgs, so deselect pgs-cdn to count each request once.",
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 46
+      },
+      "id": 15,
+      "title": "Bytes served per second by project or tunnel (top $topn)",
+      "type": "timeseries",
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "sum by (app, user, resource) (rate(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__rate_interval])) and on (app, user, resource) topk($topn, sum by (app, user, resource) (increase(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range] @ end())) > 0)",
+          "legendFormat": "{{resource}} ({{user}})",
+          "refId": "A",
+          "editorMode": "code",
+          "range": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 8,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "unit": "binBps",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 56
+      },
+      "id": 16,
+      "title": "Projects and tunnels (top 100)",
+      "type": "table",
+      "pluginVersion": "11.4.0",
+      "description": "Totals for the time range. A pgs project or a tuns tunnel's hostname. Includes pgs-cdn when selected. CDN cache misses are also counted by pgs, so deselect pgs-cdn to count each request once.",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "topk(100, sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range])) > 0)",
+          "legendFormat": "",
+          "refId": "A",
+          "editorMode": "code",
+          "instant": true,
+          "range": false,
+          "format": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "sum by (app, user, resource) (increase(pico_http_response_bytes_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range])) and on (app, user, resource) topk(100, sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range])) > 0)",
+          "legendFormat": "",
+          "refId": "B",
+          "editorMode": "code",
+          "instant": true,
+          "range": false,
+          "format": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "(sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\", status=~\"5..\"}[$__range])) or 0 * sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range]))) / sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range])) and on (app, user, resource) topk(100, sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range])) > 0)",
+          "legendFormat": "",
+          "refId": "C",
+          "editorMode": "code",
+          "instant": true,
+          "range": false,
+          "format": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "(sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\", status=~\"4..\"}[$__range])) or 0 * sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range]))) / sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range])) and on (app, user, resource) topk(100, sum by (app, user, resource) (increase(pico_http_requests_total{app=~\"$app\", user=~\"$user\", instance=~\"$instance\", resource!=\"\"}[$__range])) > 0)",
+          "legendFormat": "",
+          "refId": "D",
+          "editorMode": "code",
+          "instant": true,
+          "range": false,
+          "format": "table"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {
+              "resource": 0,
+              "user": 1,
+              "app": 2
+            },
+            "renameByName": {
+              "resource": "Project or tunnel",
+              "user": "User",
+              "app": "Service"
+            }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "sort": [
+              {
+                "field": "Value #A",
+                "desc": true
+              }
+            ]
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Requests"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Data served"
+              },
+              {
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #C"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "5xx share"
+              },
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #D"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "4xx share"
+              },
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "decimals",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ]
+        }
+      }
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 68
+      },
+      "id": 17,
+      "panels": [],
       "title": "SSH",
       "type": "row"
     },
@@ -1291,9 +1750,9 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 69
       },
-      "id": 14,
+      "id": 18,
       "title": "SSH sessions started by user (top $topn)",
       "type": "timeseries",
       "pluginVersion": "11.4.0",
@@ -1303,7 +1762,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum by (user) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\"}[$__interval])) and on (user) topk($topn, sum by (user) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\"}[$__range] @ end())) > 0)",
+          "expr": "sum by (user) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\", instance=~\"$instance\"}[$__interval])) and on (user) topk($topn, sum by (user) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\", instance=~\"$instance\"}[$__range] @ end())) > 0)",
           "legendFormat": "{{user}}",
           "refId": "A",
           "editorMode": "code",
@@ -1391,9 +1850,9 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 46
+        "y": 69
       },
-      "id": 15,
+      "id": 19,
       "title": "SSH sessions started by service",
       "type": "timeseries",
       "pluginVersion": "11.4.0",
@@ -1403,7 +1862,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum by (app) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\"}[$__interval]))",
+          "expr": "sum by (app) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\", instance=~\"$instance\"}[$__interval]))",
           "legendFormat": "{{app}}",
           "refId": "A",
           "editorMode": "code",
@@ -1486,24 +1945,484 @@
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
+      "description": "Time spent in SSH sessions. A session counts in the interval it ends, so open sessions don't show yet.",
       "gridPos": {
-        "h": 10,
+        "h": 9,
         "w": 24,
         "x": 0,
-        "y": 55
+        "y": 78
       },
-      "id": 16,
-      "title": "SSH sessions by user and command (top 50)",
-      "type": "table",
+      "id": 20,
+      "title": "SSH session time by user (top $topn)",
+      "type": "timeseries",
       "pluginVersion": "11.4.0",
-      "description": "Totals for the time range. The command is the first word of what the user ran.",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "topk(50, sum by (user, app, command) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\"}[$__range])) > 0)",
+          "expr": "sum by (user) (increase(pssh_sessions_duration_seconds{app=~\"($app)-ssh\", user=~\"$user\", instance=~\"$instance\"}[$__interval])) and on (user) topk($topn, sum by (user) (increase(pssh_sessions_duration_seconds{app=~\"($app)-ssh\", user=~\"$user\", instance=~\"$instance\"}[$__range] @ end())) > 0)",
+          "legendFormat": "{{user}}",
+          "refId": "A",
+          "editorMode": "code",
+          "range": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 8,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "unit": "s",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "interval": "2m"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 87
+      },
+      "id": 21,
+      "title": "SSH sessions by user and command (top 50)",
+      "type": "table",
+      "pluginVersion": "11.4.0",
+      "description": "Totals for the time range. The command is the first word of what the user ran. Time counts sessions that ended in the range.",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "topk(50, sum by (user, app, command) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\", instance=~\"$instance\"}[$__range])) > 0)",
+          "legendFormat": "",
+          "refId": "A",
+          "editorMode": "code",
+          "instant": true,
+          "range": false,
+          "format": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "sum by (user, app, command) (increase(pssh_sessions_duration_seconds{app=~\"($app)-ssh\", user=~\"$user\", instance=~\"$instance\"}[$__range])) and on (user, app, command) topk(50, sum by (user, app, command) (increase(pssh_sessions_created_total{app=~\"($app)-ssh\", user=~\"$user\", instance=~\"$instance\"}[$__range])) > 0)",
+          "legendFormat": "",
+          "refId": "B",
+          "editorMode": "code",
+          "instant": true,
+          "range": false,
+          "format": "table"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {
+              "user": 0,
+              "app": 1,
+              "command": 2
+            },
+            "renameByName": {
+              "user": "User",
+              "app": "Service",
+              "command": "Command"
+            }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "sort": [
+              {
+                "field": "Value #A",
+                "desc": true
+              }
+            ]
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Sessions"
+              },
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value #B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Time"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ]
+        }
+      }
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 97
+      },
+      "id": 22,
+      "panels": [],
+      "title": "Tunnels",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "description": "Users with the most tunnel time over the range. From tuns, which ignores the Service filter. The user is the SSH login name.",
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 98
+      },
+      "id": 23,
+      "title": "Active tunnels by user (top $topn)",
+      "type": "timeseries",
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "count by (user) (sish_tunnels_active{user=~\"$user\", instance=~\"$instance\"}) and on (user) topk($topn, sum by (user) (count_over_time(sish_tunnels_active{user=~\"$user\", instance=~\"$instance\"}[$__range] @ end())) > 0)",
+          "legendFormat": "{{user}}",
+          "refId": "A",
+          "editorMode": "code",
+          "range": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 8,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "description": "Bytes in both directions through every kind of tunnel. A proxied connection counts when it closes. From tuns, which ignores the Service filter. The user is the SSH login name.",
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 98
+      },
+      "id": 24,
+      "title": "Tunnel traffic by user (top $topn)",
+      "type": "timeseries",
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "sum by (user) (rate(sish_bytes_received_total{user=~\"$user\", instance=~\"$instance\"}[$__rate_interval])) + sum by (user) (rate(sish_bytes_transmitted_total{user=~\"$user\", instance=~\"$instance\"}[$__rate_interval])) and on (user) topk($topn, (sum by (user) (increase(sish_bytes_received_total{user=~\"$user\", instance=~\"$instance\"}[$__range] @ end())) + sum by (user) (increase(sish_bytes_transmitted_total{user=~\"$user\", instance=~\"$instance\"}[$__range] @ end()))) > 0)",
+          "legendFormat": "{{user}}",
+          "refId": "A",
+          "editorMode": "code",
+          "range": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 8,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "unit": "binBps",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 107
+      },
+      "id": 25,
+      "title": "Open tunnels",
+      "type": "table",
+      "pluginVersion": "11.4.0",
+      "description": "Tunnels open now. The tunnel is the name and port the client asked to bind. From tuns, which ignores the Service filter. The user is the SSH login name.",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "count by (user, type, tunnel) (sish_tunnels_active{user=~\"$user\", instance=~\"$instance\"})",
           "legendFormat": "",
           "refId": "A",
           "editorMode": "code",
@@ -1520,16 +2439,16 @@
               "Time": true
             },
             "indexByName": {
-              "user": 0,
-              "app": 1,
-              "command": 2,
+              "tunnel": 0,
+              "user": 1,
+              "type": 2,
               "Value": 3
             },
             "renameByName": {
+              "tunnel": "Tunnel",
               "user": "User",
-              "app": "Service",
-              "command": "Command",
-              "Value": "Sessions"
+              "type": "Type",
+              "Value": "Connections"
             }
           }
         },
@@ -1538,8 +2457,7 @@
           "options": {
             "sort": [
               {
-                "field": "Sessions",
-                "desc": true
+                "field": "User"
               }
             ]
           }
@@ -1555,6 +2473,119 @@
             "filterable": true
           },
           "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ]
+        }
+      }
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 117
+      },
+      "id": 26,
+      "panels": [],
+      "title": "Servers",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 118
+      },
+      "id": 27,
+      "title": "Deployed servers",
+      "type": "table",
+      "pluginVersion": "11.4.0",
+      "description": "The server and commit behind each scrape target.",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "pico_server_info{app=~\"$app|($app)-ssh\", instance=~\"$instance\"}",
+          "legendFormat": "",
+          "refId": "A",
+          "editorMode": "code",
+          "instant": true,
+          "range": false,
+          "format": "table"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Value": true,
+              "__name__": true
+            },
+            "indexByName": {
+              "nodename": 0,
+              "app": 1,
+              "instance": 2,
+              "job": 3,
+              "commit": 4
+            },
+            "renameByName": {
+              "nodename": "Server",
+              "app": "Service",
+              "instance": "Target",
+              "job": "Job",
+              "commit": "Commit"
+            }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "sort": [
+              {
+                "field": "Server"
+              }
+            ]
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -1597,16 +2628,43 @@
           "type": "prometheus",
           "uid": "PBFA97CFB590B2093"
         },
-        "definition": "label_values(pico_http_requests_total, app)",
+        "definition": "label_values(pico_server_info, nodename)",
+        "hide": 0,
         "includeAll": true,
-        "allValue": ".*",
-        "label": "Service",
+        "label": "Server",
         "multi": true,
-        "name": "app",
+        "name": "server",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(pico_http_requests_total, app)",
+          "query": "label_values(pico_server_info, nodename)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "sort": 1,
+        "type": "query",
+        "allValue": ".*"
+      },
+      {
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
+        "definition": "label_values(pico_server_info{nodename=~\"$server\"}, instance)",
+        "hide": 2,
+        "includeAll": true,
+        "label": "Instance",
+        "multi": true,
+        "name": "instance",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(pico_server_info{nodename=~\"$server\"}, instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -1623,22 +2681,50 @@
           "type": "prometheus",
           "uid": "PBFA97CFB590B2093"
         },
-        "definition": "label_values({__name__=~\"pico_http_requests_total|pssh_sessions_created_total\", app=~\"$app|($app)-ssh\"}, user)",
+        "definition": "label_values(pico_http_requests_total{instance=~\"$instance\"}, app)",
+        "hide": 0,
         "includeAll": true,
-        "allValue": ".+",
+        "label": "Service",
+        "multi": true,
+        "name": "app",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(pico_http_requests_total{instance=~\"$instance\"}, app)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "sort": 1,
+        "type": "query",
+        "allValue": ".*"
+      },
+      {
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
+        "definition": "label_values({__name__=~\"pico_http_requests_total|pssh_sessions_created_total\", app=~\"$app|($app)-ssh\", instance=~\"$instance\"}, user)",
+        "hide": 0,
+        "includeAll": true,
         "label": "User",
         "multi": true,
         "name": "user",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values({__name__=~\"pico_http_requests_total|pssh_sessions_created_total\", app=~\"$app|($app)-ssh\"}, user)",
+          "query": "label_values({__name__=~\"pico_http_requests_total|pssh_sessions_created_total\", app=~\"$app|($app)-ssh\", instance=~\"$instance\"}, user)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
         "regex": "",
         "sort": 1,
-        "type": "query"
+        "type": "query",
+        "allValue": ".+"
       },
       {
         "current": {
