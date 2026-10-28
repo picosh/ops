@@ -17,7 +17,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: node_filesystem_avail_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"} / node_filesystem_size_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"}
+              expr: |
+                (node_filesystem_avail_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"} / node_filesystem_size_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"})
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -38,7 +40,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: '{{ $labels.mountpoint }} on {{ $labels.instance }} has {{ humanizePercentage $values.A.Value }} free'
+          summary: '{{ $labels.mountpoint }} on {{ or $labels.nodename $labels.instance }} has {{ humanizePercentage $values.A.Value }} free'
 
       - uid: host-disk-filling
         title: Host Disk Filling
@@ -53,8 +55,11 @@ groups:
               editorMode: code
               # Only flag disks that are already past 75% so a slow-growing empty disk doesn't page.
               expr: |
-                predict_linear(node_filesystem_avail_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"}[6h], 24 * 3600)
-                and node_filesystem_avail_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"} / node_filesystem_size_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"} < 0.25
+                (
+                  predict_linear(node_filesystem_avail_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"}[6h], 24 * 3600)
+                  and node_filesystem_avail_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"} / node_filesystem_size_bytes{fstype=~"ext[234]|xfs|btrfs|zfs"} < 0.25
+                )
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -75,7 +80,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: '{{ $labels.mountpoint }} on {{ $labels.instance }} will fill within 24 hours at the current rate'
+          summary: '{{ $labels.mountpoint }} on {{ or $labels.nodename $labels.instance }} will fill within 24 hours at the current rate'
 
       - uid: host-inodes-low
         title: Host Inodes Low
@@ -88,7 +93,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: node_filesystem_files_free{fstype=~"ext[234]|xfs|btrfs|zfs"} / node_filesystem_files{fstype=~"ext[234]|xfs|btrfs|zfs"}
+              expr: |
+                (node_filesystem_files_free{fstype=~"ext[234]|xfs|btrfs|zfs"} / node_filesystem_files{fstype=~"ext[234]|xfs|btrfs|zfs"})
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -109,7 +116,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: '{{ $labels.mountpoint }} on {{ $labels.instance }} has {{ humanizePercentage $values.A.Value }} of inodes free'
+          summary: '{{ $labels.mountpoint }} on {{ or $labels.nodename $labels.instance }} has {{ humanizePercentage $values.A.Value }} of inodes free'
 
       - uid: host-filesystem-read-only
         title: Host Filesystem Read Only
@@ -122,7 +129,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: node_filesystem_readonly{fstype=~"ext[234]|xfs|btrfs|zfs"}
+              expr: |
+                (node_filesystem_readonly{fstype=~"ext[234]|xfs|btrfs|zfs"})
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -143,7 +152,7 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: '{{ $labels.mountpoint }} on {{ $labels.instance }} is mounted read-only'
+          summary: '{{ $labels.mountpoint }} on {{ or $labels.nodename $labels.instance }} is mounted read-only'
 
       - uid: host-memory-low
         title: Host Memory Low
@@ -156,7 +165,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes
+              expr: |
+                (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -177,7 +188,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: '{{ $labels.instance }} has {{ humanizePercentage $values.A.Value }} memory available'
+          summary: '{{ or $labels.nodename $labels.instance }} has {{ humanizePercentage $values.A.Value }} memory available'
 
       - uid: host-oom-kill
         title: Host OOM Kill
@@ -190,7 +201,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: increase(node_vmstat_oom_kill[5m])
+              expr: |
+                (increase(node_vmstat_oom_kill[5m]))
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -211,7 +224,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: The kernel OOM killer ran on {{ $labels.instance }}
+          summary: The kernel OOM killer ran on {{ or $labels.nodename $labels.instance }}
 
       - uid: host-cpu-high
         title: Host CPU High
@@ -224,7 +237,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: 1 - avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))
+              expr: |
+                (1 - avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])))
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -245,7 +260,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: '{{ $labels.instance }} CPU is at {{ humanizePercentage $values.A.Value }}'
+          summary: '{{ or $labels.nodename $labels.instance }} CPU is at {{ humanizePercentage $values.A.Value }}'
 
       - uid: host-cpu-steal-high
         title: Host CPU Steal High
@@ -258,7 +273,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: avg by (instance) (rate(node_cpu_seconds_total{mode="steal"}[5m]))
+              expr: |
+                (avg by (instance) (rate(node_cpu_seconds_total{mode="steal"}[5m])))
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -279,7 +296,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: '{{ $labels.instance }} CPU steal is at {{ humanizePercentage $values.A.Value }}'
+          summary: '{{ or $labels.nodename $labels.instance }} CPU steal is at {{ humanizePercentage $values.A.Value }}'
 
       - uid: host-disk-io-saturated
         title: Host Disk IO Saturated
@@ -292,7 +309,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: rate(node_disk_io_time_seconds_total[5m])
+              expr: |
+                (rate(node_disk_io_time_seconds_total[5m]))
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -313,7 +332,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: '{{ $labels.device }} on {{ $labels.instance }} is busy {{ humanizePercentage $values.A.Value }} of the time'
+          summary: '{{ $labels.device }} on {{ or $labels.nodename $labels.instance }} is busy {{ humanizePercentage $values.A.Value }} of the time'
 
       - uid: host-clock-not-synced
         title: Host Clock Not Synced
@@ -326,7 +345,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: node_timex_sync_status
+              expr: |
+                (node_timex_sync_status)
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -347,7 +368,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: '{{ $labels.instance }} clock is not synchronized'
+          summary: '{{ or $labels.nodename $labels.instance }} clock is not synchronized'
 
       - uid: host-conntrack-high
         title: Host Conntrack High
@@ -360,7 +381,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: node_nf_conntrack_entries / node_nf_conntrack_entries_limit
+              expr: |
+                (node_nf_conntrack_entries / node_nf_conntrack_entries_limit)
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -381,7 +404,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: '{{ $labels.instance }} conntrack table is {{ humanizePercentage $values.A.Value }} full'
+          summary: '{{ or $labels.nodename $labels.instance }} conntrack table is {{ humanizePercentage $values.A.Value }} full'
 
       - uid: host-rebooted
         title: Host Rebooted
@@ -394,7 +417,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: time() - node_boot_time_seconds
+              expr: |
+                (time() - node_boot_time_seconds)
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -415,4 +440,4 @@ groups:
         labels:
           severity: info
         annotations:
-          summary: '{{ $labels.instance }} rebooted {{ humanizeDuration $values.A.Value }} ago'
+          summary: '{{ or $labels.nodename $labels.instance }} rebooted {{ humanizeDuration $values.A.Value }} ago'

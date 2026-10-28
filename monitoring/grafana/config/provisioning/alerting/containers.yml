@@ -17,7 +17,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: increase(container_oom_events_total{name!=""}[5m])
+              expr: |
+                (increase(container_oom_events_total{name!=""}[5m]))
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -38,7 +40,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: Container {{ $labels.name }} on {{ $labels.instance }} was OOM killed
+          summary: Container {{ $labels.name }} on {{ or $labels.nodename $labels.instance }} was OOM killed
 
       - uid: container-memory-near-limit
         title: Container Memory Near Limit
@@ -51,7 +53,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: container_memory_working_set_bytes{name!=""} / (container_spec_memory_limit_bytes{name!=""} > 0)
+              expr: |
+                (container_memory_working_set_bytes{name!=""} / (container_spec_memory_limit_bytes{name!=""} > 0))
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -72,7 +76,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: Container {{ $labels.name }} on {{ $labels.instance }} is using {{ humanizePercentage $values.A.Value }} of its memory limit
+          summary: Container {{ $labels.name }} on {{ or $labels.nodename $labels.instance }} is using {{ humanizePercentage $values.A.Value }} of its memory limit
 
       - uid: container-restarting
         title: Container Restarting
@@ -85,7 +89,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: changes(container_start_time_seconds{name!=""}[15m])
+              expr: |
+                (changes(container_start_time_seconds{name!=""}[15m]))
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -106,4 +112,4 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: Container {{ $labels.name }} on {{ $labels.instance }} restarted {{ $values.A.Value }} times in 15 minutes
+          summary: Container {{ $labels.name }} on {{ or $labels.nodename $labels.instance }} restarted {{ $values.A.Value }} times in 15 minutes

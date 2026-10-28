@@ -1,4 +1,27 @@
 groups:
+  - name: host_info
+    rules:
+      - record: instance:node_uname_info:node_exporter
+        # Keep hostnames through scrape outages, preferring the current name.
+        expr: |
+          max by (instance, nodename) (node_uname_info{job="node_exporter"})
+          or on (instance)
+          topk by (instance) (1,
+            max by (instance, nodename) (
+              last_over_time(node_uname_info{job="node_exporter"}[24h])
+            )
+          )
+      - record: instance:node_uname_info
+        # Share hostnames with cAdvisor and keep targets without metadata.
+        expr: |
+          instance:node_uname_info:node_exporter
+          or
+          label_replace(
+            instance:node_uname_info:node_exporter,
+            "instance", "$1:9080", "instance", "(.*):9100"
+          )
+          or on (instance)
+          (0 * max by (instance) (up) + 1)
   - name: pico_http
     rules:
       # The user access dashboard's latency panels can't read the raw buckets

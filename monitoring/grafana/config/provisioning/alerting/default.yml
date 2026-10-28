@@ -17,7 +17,9 @@ groups:
             datasourceUid: PBFA97CFB590B2093
             model:
               editorMode: code
-              expr: up
+              expr: |
+                (up)
+                * on (instance) group_left (nodename) instance:node_uname_info
               instant: true
               range: false
               refId: A
@@ -38,5 +40,5 @@ groups:
         labels:
           severity: critical
         annotations:
-          description: 'Target {{ $labels.instance }} for job {{ $labels.job }} is down'
-          summary: 'Target {{ $labels.instance }} for job {{ $labels.job }} is down'
+          description: 'Target {{ or $labels.nodename $labels.instance }} for job {{ $labels.job }} is down'
+          summary: 'Target {{ or $labels.nodename $labels.instance }} for job {{ $labels.job }} is down'
