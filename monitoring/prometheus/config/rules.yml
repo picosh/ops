@@ -1,0 +1,7 @@
+groups:
+  - name: pico_http
+    rules:
+      # The user access dashboard's latency panels can't read the raw buckets
+      # inside Grafana's timeout, and none of them split by status or method.
+      - record: app_user:pico_http_request_duration_seconds_bucket:rate2m
+        expr: sum by (app, instance, user, le) (rate(pico_http_request_duration_seconds_bucket[2m]))

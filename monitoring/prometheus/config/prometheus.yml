@@ -3,6 +3,7 @@ global:
   scrape_timeout: 10s
 rule_files:
   - alert.yml
+  - rules.yml
 scrape_configs:
   - job_name: prometheus
     static_configs:
