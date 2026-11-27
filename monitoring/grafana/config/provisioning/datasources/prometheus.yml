@@ -15,3 +15,5 @@ datasources:
   jsonData:
     # Matches the global scrape interval so $__rate_interval spans enough samples.
     timeInterval: 30s
+    # Prometheus runs on one core, so a dashboard's queries queue behind each other. Matches its query.timeout.
+    timeout: 120

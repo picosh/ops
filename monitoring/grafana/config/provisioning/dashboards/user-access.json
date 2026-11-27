@@ -403,7 +403,8 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "maxDataPoints": 300
     },
     {
       "datasource": {
@@ -502,7 +503,8 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "maxDataPoints": 300
     },
     {
       "datasource": {
@@ -927,7 +929,8 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "maxDataPoints": 300
     },
     {
       "datasource": {
@@ -1087,7 +1090,8 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "maxDataPoints": 300
     },
     {
       "datasource": {
@@ -1186,7 +1190,8 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "maxDataPoints": 300
     },
     {
       "datasource": {
@@ -1307,7 +1312,8 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "maxDataPoints": 300
     },
     {
       "collapsed": false,
@@ -1419,7 +1425,8 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "maxDataPoints": 300
     },
     {
       "datasource": {
@@ -1518,7 +1525,8 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "maxDataPoints": 300
     },
     {
       "datasource": {
